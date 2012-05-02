@@ -27,10 +27,6 @@ body {
 	margin-bottom: 10px;
 }
 
-#pause-button {
-	float: right;
-}
-
 /* Question */
 #questions {
 	background: none;
@@ -90,10 +86,14 @@ ul.popcorn-quiz-options label{
 	text-align:left; 
 }
 
-.actionbutton { font-size:1.2em;
- 	text-transform: uppercase; 
+.actionbutton { 
+	font-size:1em;
  	color:#676767; 
  	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.55); 
+}
+
+.actionbutton i+span {
+	margin-left: 5px;
 }
 
 
