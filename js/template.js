@@ -82,13 +82,14 @@ document.addEventListener( "DOMContentLoaded", function( e ){
 
         popcorn.on('play', function() {
           playing = true;
-          playbutton.className = 'playing';
-          playbutton.style.visibility = 'visible';
+          playbutton.childNodes[0].className = 'icon-pause';
+          playbutton.childNodes[1].innerHTML = 'Pause Quiz';
         });
 
         popcorn.on('pause', function() {
           if (playing) {
-            playbutton.style.visibility = 'hidden';
+            playbutton.childNodes[0].className = 'icon-pause';
+            playbutton.childNodes[1].innerHTML = 'Pause Quiz';
           }
         });
 
@@ -98,13 +99,15 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             if (!popcorn.paused()) {
               playing = false;
               popcorn.pause();
-              playbutton.className = '';
+              playbutton.childNodes[0].className = "icon-play";
+              playbutton.childNodes[1].innerHTML = 'Play Quiz';
             }
             return;
           }
 
           popcorn.play();
         }, false);
+
 
         /*
         tell quiz-answers editor what questions are available

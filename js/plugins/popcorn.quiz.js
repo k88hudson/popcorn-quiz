@@ -209,12 +209,15 @@
 
 		base.makeContainer();
 
-		question = document.createElement('p');
+		/* Make questions and answers */
+
+		question = document.createElement('h1');
 		base.addClass(question, 'popcorn-quiz-question');
 		question.appendChild(document.createTextNode(options.question));
 		base.container.appendChild(question);
 
 		ul = document.createElement('ul');
+		base.addClass( ul, 'popcorn-quiz-options');
 		base.container.appendChild(ul);
 
 		for (i = 0; i < answers.length; i++) {
@@ -223,6 +226,7 @@
 			};
 			answers[i] = answer;
 			answer.label = document.createElement('label');
+			base.addClass(answer.label, "radio");
 			answer.input = document.createElement('input');
 			answer.input.setAttribute('type', 'radio');
 			answer.input.setAttribute('name', guid);
@@ -258,6 +262,7 @@
 		}
 
 		button = document.createElement('button');
+		button.className = 'btn btn-large btn-primary';
 		button.appendChild(document.createTextNode('Continue >>'));
 		button.addEventListener('click', proceed);
 		element.appendChild(button);
