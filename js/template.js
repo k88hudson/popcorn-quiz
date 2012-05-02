@@ -11,6 +11,20 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       function start(){
         var track, popcorn, title, score, questions = [];
 
+        //Help
+        document.getElementById("help").addEventListener( "click", function(e) {
+          e.preventDefault();
+          var helpPanel = document.getElementById("help-panel");
+          console.log(helpPanel);
+          if(helpPanel.className === "on") {
+            helpPanel.className = "off"
+            this.parentNode.className = ""; 
+          } else {
+            helpPanel.className = "on";
+            this.parentNode.className = "active"; 
+          }
+        }, false);
+
         function calculateScore() {
           var i, points = 0, outOf = 0;
 

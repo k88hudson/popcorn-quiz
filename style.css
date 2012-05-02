@@ -3,9 +3,34 @@
 @font-face { font-family: 'MuseoSans700'; src: url('http://www.pbs.org/newshour/fonts/museosans_700/MuseoSans_700-webfont.eot'); src: url('http://www.pbs.org/newshour/fonts/museosans_700/MuseoSans_700-webfont.eot?#iefix') format('embedded-opentype'),  url('http://www.pbs.org/newshour/fonts/museosans_700/MuseoSans_700-webfont.woff') format('woff'),  url('http://www.pbs.org/newshour/fonts/museosans_700/MuseoSans_700-webfont.ttf') format('truetype'),  url('http://www.pbs.org/newshour/fonts/museosans_700/MuseoSans_700-webfont.svg#MuseoSans300') format('svg'); font-weight: normal; font-style: normal; }
 
 body {
-	font-family:'MuseoSans300';
+	font-family:'MuseoSans300', "Helvetica Neue", Helvetica, sans-serif;
 	background: url(img/bg-pattern.jpg) repeat; /* for browsers that don't support css3 */
 	background: url(img/bg-stars.jpg) center top no-repeat, url(img/bg-pattern.jpg) repeat;
+}
+/* Help Panel */
+
+#help { color: #F6DC7E; }
+.active #help { color: #FFF; }
+.on { display: block; }
+.off { display: none; }
+#help-panel .hero-unit { 
+	padding: 30px 60px 60px 60px;
+	margin-top: -20px;
+	background: #FDF3AD;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0 4px 8px rgba(0,0,0,.4);
+}
+#help-panel .hero-unit p {
+	font-size: 14px;
+}
+#help-panel .hero-unit h2 {
+	font-family: "MuseoSans700", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 600;
+}
+
+#help-panel .hero-unit h3 {
+	padding: .5em 0;
+	border-top: 1px solid #888
 }
 
 /* Navigation bar */
@@ -81,7 +106,8 @@ ul.popcorn-quiz-options label{
 
 /* Buttons */
 .btn-large { 
-	font-family:'MuseoSans700'; 
+	font-family:'MuseoSans700', "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 600;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.55); 
 	text-align:left; 
 }

@@ -45,7 +45,6 @@
   </head>
 
   <body>
-
  <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -57,7 +56,7 @@
           <a class="brand" href="#"></a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="help"><a id="help" href="#help" data-butter-exclude>Help with this template</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
@@ -68,6 +67,20 @@
     </div>
     
       <div class="container">
+
+        <div id="help-panel" class="off" data-butter-exclude>
+          <div class="hero-unit">
+              <h2>Help</h2>
+              <p>To create a quiz, drag a <code>quiz</code> element from the 'My Events' panel to the timelime. You will have to set the question, the answers, the correct answer, and an explanation for the correct answer.</p>
+              <h3>Highlighting quiz answers</h3>
+              <p>Drag a <code>answer</code> event to the track at the time you want it to be highlighted.</p>
+              <h3>Adding Media or Images</h3>
+              <p>For <strong>videos</strong>, Drag a <code>mediaspawner</code> event to the track at the time you want it to show up.
+              <p>For <strong>videos</strong>, Drag an <code>image</code> event to the track at the time you want it to show up.</p>
+              <p>You should set the target to be <code>media1</code> if you want it to appear on the left, and <code>media2</code> if you want it to appear on the right.</p>
+          </div>
+        </div>
+
         <div class="row">
           <div class="span6">
             <h4 class="quiz-title">
