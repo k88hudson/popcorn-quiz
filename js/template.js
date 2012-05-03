@@ -90,6 +90,9 @@ document.addEventListener( "DOMContentLoaded", function( e ){
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
+        media.addTrack( "Hints" );
+        media.addTrack( "MediaLeft" );
+        media.addTrack( "MediaRight" );
         popcorn = media.popcorn.popcorn;
 
         popcorn.on('play', function() {
@@ -236,6 +239,55 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           }
         });
 
+        butter.tracks[ 2 ].addTrackEvent({
+          type: "hint",
+          popcornOptions: {
+            start: 5,
+            end: 16.05,
+            target: 'quiz-hint',
+            text: 'This is a hint',
+          }
+        });
+
+        butter.tracks[ 3 ].addTrackEvent({
+          type: "mediaspawner",
+          popcornOptions: {
+            start: 5,
+            end: 16.05,
+            target: 'media1',
+            source: 'http://www.youtube.com/watch?v=H3a7FC0Jkv8',
+          }
+        });
+
+        butter.tracks[ 4 ].addTrackEvent({
+          type: "mediaspawner",
+          popcornOptions: {
+            start: 5,
+            end: 16.05,
+            target: 'media2',
+            source: 'http://www.youtube.com/watch?v=iu89otu-T9A',
+          }
+        });
+
+        butter.tracks[ 3 ].addTrackEvent({
+          type: "image",
+          popcornOptions: {
+            start: 16,
+            end: 22.833,
+            target: 'media1',
+            src: 'http://www.boilermakers.ca/content/images/stories/welder_testing.jpg',
+          }
+        });
+
+        butter.tracks[ 4 ].addTrackEvent({
+          type: "image",
+          popcornOptions: {
+            start: 16,
+            end: 22.833,
+            target: 'media2',
+            src: 'http://www.historicalstockphotos.com/images/xsmall/2511_a_welder_in_protective_clothing_bending_over_while_making_boilers.jpg',
+          }
+        });
       }
 
       media.onReady( start );
