@@ -1,7 +1,5 @@
 document.addEventListener( "DOMContentLoaded", function( e ){
 
-  Popcorn.plugin.debug = true;
-
   Butter({
     config: "quiz.conf",
     ready: function( butter ){
