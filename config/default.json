@@ -1,0 +1,27 @@
+{
+  "server" : {
+    "bindIP" : "localhost",
+    "bindPort" : "7890"
+  },
+  "logger" : {
+    "format" : "dev"
+  },
+  "session" : {
+    "secret": "thisisareallyreallylongsecrettoencryptcookies"
+  },
+  "dirs": {
+    "wwwRoot": "../",
+    "templates": "../templates",
+    "publish": "view",
+    "publishPrefix": "http://localhost:7890/cornfield/view"
+  },
+  "environment": {
+    "mode": "development",
+    "defaultUser": "secretrobotron@gmail.com"
+  },
+  "templates": {
+    "default-butter-test": {
+      "../external/popcorn-js/": "http://localhost:7890/external/popcorn-js/"
+    }
+  }
+}
