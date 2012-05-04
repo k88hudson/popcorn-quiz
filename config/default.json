@@ -10,18 +10,14 @@
     "secret": "thisisareallyreallylongsecrettoencryptcookies"
   },
   "dirs": {
-    "wwwRoot": "../",
-    "templates": "../templates",
+    "wwwRoot": "./",
+    "templates": "butter/templates",
     "publish": "view",
     "publishPrefix": "http://localhost:7890/cornfield/view"
   },
   "environment": {
-    "mode": "development",
-    "defaultUser": "secretrobotron@gmail.com"
+    "mode": "production"
   },
   "templates": {
-    "default-butter-test": {
-      "../external/popcorn-js/": "http://localhost:7890/external/popcorn-js/"
-    }
   }
 }
