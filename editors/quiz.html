@@ -44,7 +44,7 @@
     <script type="text/javascript">
       (function(){
         var _comm = new Comm(),
-          elementNames = ['target', 'question', 'explanation', 'answers', 'correct', 'start', 'end', 'correctAnswer'],
+          elementNames = ['target', 'question', 'explanation', 'answers', 'correct', 'start', 'end'],
           elements = {},
           start, end;
 
@@ -68,16 +68,16 @@
             answerInputs = document.querySelectorAll('#answers input');
          
             for (i = 0; i < answerInputs.length; i++) {
+              console.log(answerInputs[i].value);
               if (answerInputs[i].value) {
                 answers.push(answerInputs[i].value);
-                if (i === elements.correct.value) {
+                console.log( "YO", answerInputs[i].value , elements.correct.value);
+                if (answerInputs[i].value === elements.correct.value) {
                   popcornOptions.correct = answers.length - 1;
                 }
               }
             }
-            
-            popcornOptions.correct = parseInt(elements.correctAnswer.value);
-            //console.log(popcornOptions);
+
             document.getElementById( "message" ).innerHTML = "";
             _comm.send( "submit", {
               eventData: popcornOptions,
@@ -163,12 +163,6 @@
             }
             for (i = l; i < elements.answers.childNodes.length; i++) {
               elements.answers.removeChild(elements.answers.childNodes[i]);
-            }
-        
-            if(elements.correct.selectedIndex >= 0) {
-              document.getElementById("correctAnswer").value = elements.correct.selectedIndex;
-            } else {
-              document.getElementById("correctAnswer").value = 0;
             }
 
             for( i = 0, l = answers.length; i < l; i++ ) {
@@ -261,7 +255,6 @@
         <tr>
           <td>Answer</td>
           <td><select id="correct"></select></td>
-          <td><input id="correctAnswer" type="hidden"></td>
         </tr>
       </tfoot>
     </table>

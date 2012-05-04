@@ -110,6 +110,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
 
         playbutton = document.getElementById('playpause');
         playbutton.addEventListener('click', function() {
+          console.log("sup");
           if (playing) {
             if (!popcorn.paused()) {
               playing = false;
