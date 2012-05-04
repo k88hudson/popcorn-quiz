@@ -127,6 +127,7 @@
 			options.answer = i;
 
 			base.addClass(answers[i].label.parentNode, 'answered');
+
 			if (base.options.correct === i) {
 				status = 'right';
 				sound = rightSound;

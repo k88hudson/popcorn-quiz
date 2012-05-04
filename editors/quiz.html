@@ -44,13 +44,14 @@
     <script type="text/javascript">
       (function(){
         var _comm = new Comm(),
-          elementNames = ['target', 'question', 'explanation', 'answers', 'correct', 'start', 'end'],
+          elementNames = ['target', 'question', 'explanation', 'answers', 'correct', 'start', 'end', 'correctAnswer'],
           elements = {},
           start, end;
 
         document.addEventListener( "DOMContentLoaded", function( e ){
 
           function sendData( alsoClose ){
+
             alsoClose = !!alsoClose; 
             var i, answerInputs,
               answers = [], popcornOptions;
@@ -63,8 +64,9 @@
               target: elements.target.value,
               answers: answers
             };
-
+            
             answerInputs = document.querySelectorAll('#answers input');
+         
             for (i = 0; i < answerInputs.length; i++) {
               if (answerInputs[i].value) {
                 answers.push(answerInputs[i].value);
@@ -73,8 +75,9 @@
                 }
               }
             }
-            popcornOptions.correct = answers.indexOf(popcornOptions.correct);
-
+            
+            popcornOptions.correct = parseInt(elements.correctAnswer.value);
+            //console.log(popcornOptions);
             document.getElementById( "message" ).innerHTML = "";
             _comm.send( "submit", {
               eventData: popcornOptions,
@@ -91,6 +94,7 @@
           }
 
           function updateTrackEvent( e ){
+       
             var popcornOptions = e.data.popcornOptions || e.data,
                 targets = e.data.targets,
                 /* mediaName = "Current Media Element", */
@@ -101,12 +105,6 @@
             end = popcornOptions.end;
             elements.start.value = start;
             elements.end.value = end;
-
-            /*
-            if( media && media.name && media.target ){
-              mediaName += " (\"" + media.name + "\": " + media.target + ")";
-            } //if
-            */
 
             //load target values
             if (targets) {
@@ -147,9 +145,11 @@
                 col2 = document.createElement('td');
                 input = document.createElement('input');
                 input.type = 'text';
-                input.addEventListener( "change", function( e ){
+         
+                input.addEventListener( "change", function( e ) {
                   sendData( false );
                 }, false );
+
                 row.appendChild(col1);
                 row.appendChild(col2);
                 col2.appendChild(input);
@@ -163,6 +163,12 @@
             }
             for (i = l; i < elements.answers.childNodes.length; i++) {
               elements.answers.removeChild(elements.answers.childNodes[i]);
+            }
+        
+            if(elements.correct.selectedIndex >= 0) {
+              document.getElementById("correctAnswer").value = elements.correct.selectedIndex;
+            } else {
+              document.getElementById("correctAnswer").value = 0;
             }
 
             for( i = 0, l = answers.length; i < l; i++ ) {
@@ -184,7 +190,7 @@
             for (i = l; i < elements.correct.childNodes.length; i++) {
               elements.correct.removeChild(elements.correct.childNodes[i]);
             }
-          }
+          } //updatetrackevent
 
           var name, i;
 
@@ -216,7 +222,6 @@
               document.getElementById( "message" ).innerHTML = "You've entered an invalid start or end time. Please verify that they are both greater than 0, the end time is equal to or less than the media's duration, and that the start time is less than the end time.";
             } //if
           });
-
         }, false );
       })();
     </script>
@@ -256,6 +261,7 @@
         <tr>
           <td>Answer</td>
           <td><select id="correct"></select></td>
+          <td><input id="correctAnswer" type="hidden"></td>
         </tr>
       </tfoot>
     </table>

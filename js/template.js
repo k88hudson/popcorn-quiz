@@ -13,7 +13,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         document.getElementById("help").addEventListener( "click", function(e) {
           e.preventDefault();
           var helpPanel = document.getElementById("help-panel");
-          console.log(helpPanel);
+       
           if(helpPanel.className === "on") {
             helpPanel.className = "off"
             this.parentNode.className = ""; 
@@ -165,129 +165,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           onAnswer: answerQuiz
         });
 
-        butter.tracks[ 0 ].addTrackEvent({
-          type: "quiz",
-          popcornOptions: {
-            start: 3,
-            end: 16.05,
-            target: 'questions',
-            question: 'Which symbol has represented American jobs in Republican candidate campaign ads this election year?',
-            answers: [
-              'the farmer',
-              'wheat fields',
-              'the welder',
-              'American flag'
-            ],
-            correct: 2,
-            explanation: 'It\'s the welder, obvi!'
-          }
-        });
-
-        butter.tracks[ 1 ].addTrackEvent({
-          type: "answer",
-          popcornOptions: {
-            start: 11.338,
-            end: 12.38,
-            target: 'questions',
-            answer: 0
-          }
-        });
-
-        butter.tracks[ 1 ].addTrackEvent({
-          type: "answer",
-          popcornOptions: {
-            start: 12.38,
-            end: 13.512,
-            target: 'questions',
-            answer: 1
-          }
-        });
-
-        butter.tracks[ 1 ].addTrackEvent({
-          type: "answer",
-          popcornOptions: {
-            start: 13.588,
-            end: 14.504,
-            target: 'questions',
-            answer: 2
-          }
-        });
-
-        butter.tracks[ 1 ].addTrackEvent({
-          type: "answer",
-          popcornOptions: {
-            start: 14.637,
-            end: 15.924,
-            target: 'questions',
-            answer: 3
-          }
-        });
-
-        butter.tracks[ 0 ].addTrackEvent({
-          type: "quiz",
-          popcornOptions: {
-            start: 16.05,
-            end: 22.833,
-            target: 'questions',
-            question: 'Which welder appeared in a Newt Gingrich ad?',
-            answers: [
-              'Left',
-              'Right'
-            ],
-            correct: 0,
-            explanation: 'Explanation goes here.'
-          }
-        });
-
-        butter.tracks[ 2 ].addTrackEvent({
-          type: "hint",
-          popcornOptions: {
-            start: 5,
-            end: 16.05,
-            target: 'quiz-hint',
-            text: 'This is a hint',
-          }
-        });
-
-        butter.tracks[ 3 ].addTrackEvent({
-          type: "mediaspawner",
-          popcornOptions: {
-            start: 5,
-            end: 16.05,
-            target: 'media1',
-            source: 'http://www.youtube.com/watch?v=H3a7FC0Jkv8',
-          }
-        });
-
-        butter.tracks[ 4 ].addTrackEvent({
-          type: "mediaspawner",
-          popcornOptions: {
-            start: 5,
-            end: 16.05,
-            target: 'media2',
-            source: 'http://www.youtube.com/watch?v=iu89otu-T9A',
-          }
-        });
-
-        butter.tracks[ 3 ].addTrackEvent({
-          type: "image",
-          popcornOptions: {
-            start: 16,
-            end: 22.833,
-            target: 'media1',
-            src: 'http://www.boilermakers.ca/content/images/stories/welder_testing.jpg',
-          }
-        });
-
-        butter.tracks[ 4 ].addTrackEvent({
-          type: "image",
-          popcornOptions: {
-            start: 16,
-            end: 22.833,
-            target: 'media2',
-            src: 'http://www.historicalstockphotos.com/images/xsmall/2511_a_welder_in_protective_clothing_bending_over_while_making_boilers.jpg',
-          }
-        });
       }
 
       media.onReady( start );
