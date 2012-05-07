@@ -178,11 +178,13 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       ready: function( butter ){
         media = butter.media[ 0 ];
 
+        console.log("ready");
+
         //Wraps events in a canplayall event listener for export
         var wrapEvents = "canplayall";
         media.popcornScripts = { };
-        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", function( e ) { ';
-        media.popcornScripts.afterEvents = '});'
+        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", evts );\nfunction evts() { ';
+        media.popcornScripts.afterEvents = '\npopcorn.off( "'+wrapEvents+'", evts );\n}'
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
@@ -192,7 +194,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         popcorn = media.popcorn.popcorn;
 
         media.onReady( start );
-        
+
         window.butter = butter;
       }
     }); //Butter
@@ -203,10 +205,12 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       start();
     }
     else{
-      media.addEventListener('canplay', function(e){
-        console.log("canplay")
+      media.addEventListener( 'canplay', canPlayStart ); 
+
+      function canPlayStart(){
         start();
-      }, false);
+        media.removeEventListener( 'canplay', canPlayStart )
+      }
 
     }
   }
