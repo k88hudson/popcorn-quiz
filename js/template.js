@@ -179,7 +179,10 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         media = butter.media[ 0 ];
 
         //Wraps events in a canplayall event listener for export
-        butter.wrapEvents = "canplayall";
+        var wrapEvents = "canplayall";
+        media.popcornScripts = { };
+        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", function( e ) { ';
+        media.popcornScripts.afterEvents = '});'
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
