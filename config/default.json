@@ -1,7 +1,7 @@
 {
   "server" : {
     "bindIP" : "localhost",
-    "bindPort" : "7890"
+    "bindPort" : "8888"
   },
   "logger" : {
     "format" : "dev"
@@ -13,7 +13,7 @@
     "wwwRoot": "./",
     "templates": "butter/templates",
     "publish": "view",
-    "publishPrefix": "http://localhost:7890/cornfield/view"
+    "publishPrefix": "http://localhost:8888/view"
   },
   "environment": {
     "mode": "production"
