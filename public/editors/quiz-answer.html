@@ -1,0 +1,216 @@
+<!--  This Source Code Form is subject to the terms of the MIT license
+      If a copy of the MIT license was not distributed with this file, you can
+      obtain one at http://www.mozillapopcorn.org/butter-license.txt -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table {
+        font-family: helvetica !important;
+        color: #fff !important;
+      }
+
+      #answer {
+        display: none;
+      }
+
+      td {
+        vertical-align: top;
+      }
+
+      p#message {
+        color: #FF0000;
+      }
+    </style>
+    <script type="text/javascript" src="../butter/src/dialog/dialog-comm.js"></script>
+    <script type="text/javascript">
+      (function(){
+        var _comm = new Comm(),
+          elementNames = ['target', 'answer', 'index', 'start', 'end'],
+          elements = {},
+          start, end, answerIndex;
+
+        document.addEventListener( "DOMContentLoaded", function( e ){
+
+          function sendData( alsoClose ){
+            alsoClose = !!alsoClose; 
+            var i, answerInputs,
+              answers = [], popcornOptions;
+
+            if (elements.answer.childNodes.length) {
+              i = elements.answer.selectedIndex;
+              if (i >= 0) {
+                answerIndex = parseFloat(elements.answer.childNodes[i].value);
+              }
+            } else {
+              answerIndex = parseFloat(elements.answer.value);
+            }
+
+            popcornOptions = {
+              start: elements.start.value,
+              end: elements.end.value,
+              answer: answerIndex,
+              target: elements.target.value
+            };
+
+            document.getElementById( "message" ).innerHTML = "";
+            _comm.send( "submit", {
+              eventData: popcornOptions,
+              alsoClose: alsoClose
+            });
+          } //sendData
+
+          function okPressed( e ) {
+            sendData( true );
+          }
+
+          function cancelPressed( e ) {
+            _comm.send( "cancel" );
+          }
+
+          function updateTrackEvent( e ){
+            var popcornOptions = e.data.popcornOptions || e.data,
+                targets = e.data.targets,
+                i, l, input;
+
+            start = popcornOptions.start;
+            end = popcornOptions.end;
+            answerIndex = popcornOptions.answer;
+            elements.index.value = answerIndex;
+            elements.start.value = start;
+            elements.end.value = end;
+
+            if (window.parent) {
+              window.parent.postMessage({
+                msg: 'request-quiz-answers',
+                start: start,
+                end: end
+              }, '*');
+            }
+
+            //load target values
+            if (targets) {
+              for( i = 0, l = targets.length; i < l; i++ ) {
+                if ( i < elements.target.childNodes.length ) {
+                  input = elements.target.childNodes[i];
+                  input.childNodes[0].nodeValue = targets[i];
+                } else {
+                  input = document.createElement( "OPTION" );
+                  input.appendChild( document.createTextNode( targets[i] ) );
+                  elements.target.appendChild(input);
+                }
+                input.value = targets[ i ];
+                if( popcornOptions.target === targets[ i ] ) {
+                  elements.target.value = targets[ i ];
+                }
+              }
+              //delete any extra options
+              for (i = l; i < elements.target.childNodes.length; i++) {
+                elements.target.removeChild(elements.target.childNodes[i]);
+              }
+            }
+   
+          }
+
+          var name, i;
+
+          if (window.parent) {
+            window.addEventListener('message', function(e) {
+              var answers, answer, i;
+              if (typeof e.data === 'object' && e.data.msg === 'response-quiz-answers' &&
+                e.data.answers) {
+
+                answers = e.data.answers;
+
+                if (answers.length) {
+                  elements.index.style.display = 'none';
+
+                  for( i = 0, l = answers.length; i < l; i++ ) {
+                    answer = answers[i];
+                    if ( i < elements.answer.childNodes.length ) {
+                      input = elements.answer.childNodes[i];
+                      input.childNodes[0].nodeValue = answer.answer;
+                    } else {
+                      input = document.createElement( "OPTION" );
+                      input.appendChild( document.createTextNode( answer.answer ) );
+                      elements.answer.appendChild(input);
+                    }
+                    input.value = answer.i;
+                    if( answerIndex === answer.i ) {
+                      elements.answer.selectedIndex = i;
+                    }
+                  }
+                  //delete any extra options
+                  for (i = l; i < elements.answer.childNodes.length; i++) {
+                    elements.answer.removeChild(elements.answer.childNodes[i]);
+                  }
+
+                  elements.answer.style.display = 'inline';
+                } else {
+                  elements.answer.style.display = '';
+                  elements.index.style.display = '';
+                }
+
+                if (answerIndex === undefined) {
+                  sendData();
+                }
+              }
+            }, false);
+          }
+
+          for (i = 0; i < elementNames.length; i++) {
+            name = elementNames[i];
+            elements[name] = document.getElementById(name);
+            name = elements[name];
+            if (name.nodeName === 'INPUT' || name.nodeName === 'TEXTAREA' ||
+              name.nodeName === 'SELECT') {
+                name.addEventListener( "change", function( e ){
+                  sendData( false );
+                }, false );
+            }
+          }
+
+          document.addEventListener( "keydown", function( e ) {
+            if( e.keyCode === 13 ) {
+              okPressed( e );
+            } else if( e.keyCode === 27 ) {
+              cancelPressed( e );
+            }
+          }, false);
+
+          _comm.listen( "trackeventupdated", updateTrackEvent);
+          _comm.listen( "trackeventdata", updateTrackEvent);
+
+          _comm.listen( "trackeventupdatefailed", function( e ) {
+            if( e.data === "invalidtime" ){
+              document.getElementById( "message" ).innerHTML = "You've entered an invalid start or end time. Please verify that they are both greater than 0, the end time is equal to or less than the media's duration, and that the start time is less than the end time.";
+            } //if
+          });
+
+        }, false );
+      })();
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>Start Time</td>
+        <td><input id="start" type="text"/></td>
+      </tr>
+      <tr>
+        <td>End Time</td>
+        <td><input id="end" type="text"/></td>
+      </tr>
+      <tr>
+        <td>Target</td>
+        <td><select id="target"></select></td>
+      </tr>
+      <tr>
+        <td>Answer</td>
+        <td><select id="answer"></select><input type="text" id="index"/></td>
+      </tr>
+    </table>
+    <p id="message"></p>
+  </body>
+</html>

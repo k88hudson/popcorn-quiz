@@ -1,0 +1,227 @@
+<html><head><base href="http://localhost:8888/public/">
+    <meta charset="utf-8">
+    <title>PBS Newshour Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+  
+    .popcorn-quiz-explanation {
+      text-align: center; /* Center the "Continue" button */
+    }
+
+    .popcorn-quiz-explanation > div {
+      margin: 20px 0;
+      text-align: left; /* Center the "Continue" button, but not the text */
+    }
+
+    #explanation-left {
+      float: right;
+    }
+    </style>
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+
+    <script type="text/javascript" src="js/external/popcorn.js"></script>
+    
+    <script type="text/javascript" src="js/template.js"></script>
+    
+
+  <link rel="stylesheet" href="butter/css/butter.ui.css"><script src="js/external/popcorn-js/modules/player/popcorn.player.js" type="text/javascript"></script><script src="js/plugins/popcorn.quiz.js"></script><script src="js/plugins/popcorn.quiz-answer.js"></script><script src="js/external/popcorn.mediaspawner.js"></script><script src="js/plugins/popcorn.supertext.hint.js"></script><script src="js/external/plugins/popcorn.image.js"></script><style type="text/css">.popcorn-quiz { display: none; }
+.popcorn-quiz > .popcorn-quiz-explanation { display: none; }
+.popcorn-quiz.right > .popcorn-quiz-explanation, .popcorn-quiz.wrong > .popcorn-quiz-explanation { display: block; }
+.popcorn-quiz > ul { list-style: none; }
+.popcorn-quiz-answer { cursor: pointer; }
+.popcorn-quiz-answer > label { cursor: pointer; }
+.popcorn-quiz.wrong .popcorn-quiz-answer, .popcorn-quiz.right .popcorn-quiz-answer { color: gray; }
+.popcorn-quiz.wrong .popcorn-quiz-answer.answered { text-decoration: line-through; }
+.popcorn-quiz.wrong .popcorn-quiz-answer.correct, .popcorn-quiz.right .popcorn-quiz-answer.correct { font-weight: bold; color: darkgreen; }
+.popcorn-quiz.active { display: block; }
+</style><style type="text/css">.popcorn-quiz-answer.highlight { background-color: yellow; }
+</style><style type="text/css">.supertext-container {
+  overflow: hidden;
+}
+ .supertext-on {
+  visibility: visible;
+  opacity: 1;
+  /* Show */
+  -webkit-transition: opacity 0.5s linear 0.5s;
+  -moz-transition: opacity 0.5s linear 0.5s;
+  -o-transition: opacity 0.5s linear 0.5s;
+  transition: opacity 0.5s linear 0.5s;
+}
+ .supertext-off {
+  visibility: hidden;
+  opacity: 0;
+  /* Hide */
+  -webkit-transition: visibility 0s 0.5s, opacity 0.5s linear;
+  -moz-transition: visibility 0s 0.5s, opacity 0.5s linear;
+  -o-transition: visibility 0s 0.5s, opacity 0.5s linear;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+ .supertext-off > div {
+  margin-top: -10000px;
+  -webkit-transition: margin-top 0s 0.5s;
+  -moz-transition: margin-top 0s 0.5s;
+  -o-transition: margin-top 0s 0.5s;
+  transition: margin-top 0s 0.5s;
+}
+</style></head><body>
+ <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="help"></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+    
+      <div class="container">
+
+        
+
+        <div class="row">
+          <div class="span6">
+            <h4 class="quiz-title">
+              <span id="question-title">Start the Quiz</span> <span class="label label-success"><span id="score">Score:</span></span> 
+            </h4>
+          </div>
+          <div id="media-container" class="span3 offset2">
+             <audio id="media" controls="" src="http://localhost:8888/public/audio/robotquiz.mp3">
+              <source src="audio/robotquiz.mp3" type="audio/mp3">
+              <!-- todo: flash audio player for ie8 -->
+            </audio>
+          </div>
+        </div>
+        <section id="main">
+        <!-- begin quiz -->
+
+        <div id="questions" class="hero-unit">
+            <p> <a id="playpause" href="#" class="btn btn-large actionbutton"><i class="icon-play"></i><span class="hidden-phone">Play Quiz</span></a></p>
+        </div>
+        <!-- end quiz -->
+
+        <div id="quiz-hint-container" class="row">
+          <div id="quiz-hint" class="span12">
+          </div>
+        </div>
+
+        <div>
+          <div id="explanation-left"></div>
+         <div id="explanation-right"></div>
+        </div>
+
+        <div class="row">
+          <div class="span6">
+            <div id="media1" class="flex-video">     
+            </div>
+          </div>
+           <div class="span6">
+            <div id="media2" class="flex-video">
+            </div>
+          </div>
+        </div>
+        </section>
+         <div class="row">
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+        </div>
+
+         <footer>
+          <p>© PBS Newshour 2012</p>
+         </footer>
+
+      </div> <!-- /container -->
+
+  
+
+<script type="text/javascript">(function(){
+var popcorn = Popcorn.smart( '#media', 'http://localhost:8888/public/audio/robotquiz.mp3', {"frameAnimation":true,"defaults":{"quiz":{"rightSound":["audio/ding.ogg","audio/ding.mp3"],"wrongSound":["audio/buzzer.ogg","audio/buzzer.mp3"]}}} );
+popcorn.on( "canplayall", function( e ) { 
+popcorn.quiz({
+  "question": "dasdasdas",
+  "explanation": "",
+  "answers": [
+    "dasdasd",
+    "wewee"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 0.98,
+  "end": 6.56
+});
+popcorn.hint({
+  "text": "dasdasda dasdas",
+  "start": 2.85,
+  "end": 3.85,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "quiz-hint"
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 3.671,
+  "end": 4.671
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 4.951,
+  "end": 5.951
+});
+popcorn.quiz({
+  "question": "dassdasda",
+  "explanation": "",
+  "answers": [
+    "234234",
+    "ewdwe"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 6.87,
+  "end": 12.85
+});
+});
+
+ return popcorn;
+}());</script></body></html>

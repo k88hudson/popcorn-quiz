@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PBS Newshour Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+  
+    .popcorn-quiz-explanation {
+      text-align: center; /* Center the "Continue" button */
+    }
+
+    .popcorn-quiz-explanation > div {
+      margin: 20px 0;
+      text-align: left; /* Center the "Continue" button, but not the text */
+    }
+
+    #explanation-left {
+      float: right;
+    }
+    </style>
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <script type="text/javascript" src="js/external/popcorn.js"></script>
+    <script type="text/javascript" src="butter/src/butter.js" data-butter-exclude></script>
+    <script type="text/javascript" src="js/template.js"></script>
+    <script type="text/javascript" src="https://browserid.org/include.js" data-butter-exclude></script>
+
+  </head>
+
+  <body>
+ <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="help"><a id="help" href="#help" data-butter-exclude>Help with this template</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+    
+      <div class="container">
+
+        <div id="help-panel" class="off" data-butter-exclude>
+          <div class="hero-unit">
+              <h2>Help</h2>
+              <p>To create a quiz, drag a <code>quiz</code> element from the 'My Events' panel to the timelime. You will have to set the question, the answers, the correct answer, and an explanation for the correct answer.</p>
+              <h3>Highlighting quiz answers</h3>
+              <p>Drag a <code>answer</code> event to the track at the time you want it to be highlighted.</p>
+              <h3>Adding Media or Images</h3>
+              <p>For <strong>videos</strong>, Drag a <code>mediaspawner</code> event to the track at the time you want it to show up.
+              <p>For <strong>videos</strong>, Drag an <code>image</code> event to the track at the time you want it to show up.</p>
+              <p>You should set the target to be <code>media1</code> if you want it to appear on the left, and <code>media2</code> if you want it to appear on the right.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span6">
+            <h4 class="quiz-title">
+              <span id="question-title">Start the Quiz</span> <span class="label label-success"><span id="score">Score:</span></span> 
+            </h4>
+          </div>
+          <div id="media-container" class="span3 offset2">
+             <audio id="media" controls data-butter="media">
+              <source src="audio/robotquiz.mp3" type="audio/mp3"/>
+              <!-- todo: flash audio player for ie8 -->
+            </audio>
+          </div>
+        </div>
+        <section id="main">
+        <!-- begin quiz -->
+
+        <div id="questions" data-butter="target" class="hero-unit">
+            <p> <a id="playpause" href="#" class="btn btn-large actionbutton"><i class="icon-play"></i><span class="hidden-phone">Play Quiz</span></a></p>
+        </div>
+        <!-- end quiz -->
+
+        <div id="quiz-hint-container" class="row">
+          <div id="quiz-hint" data-butter="target" class="span12">
+          </div>
+        </div>
+
+        <div>
+          <div id="explanation-left" data-butter="target"></div>
+         <div id="explanation-right" data-butter="target"></div>
+        </div>
+
+        <div class="row">
+          <div class="span6" >
+            <div id="media1" data-butter="target" class="flex-video">     
+            </div>
+          </div>
+           <div class="span6" >
+            <div id="media2" data-butter="target" class="flex-video">
+            </div>
+          </div>
+        </div>
+        </section>
+         <div class="row">
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More &raquo;</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More &raquo;</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More &raquo;</a></p>
+          </div>
+        </div>
+
+         <footer>
+          <p>&copy; PBS Newshour 2012</p>
+         </footer>
+
+      </div> <!-- /container -->
+
+  </body>
+</html>
