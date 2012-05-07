@@ -148,18 +148,7 @@ function start(){
       }
     }
   }, false);
-/*
-Popcorn.forEach( popcorn.data.trackEvents.byStart, function ( item ) {
-  if ( item._natives && item._natives.type === "quiz" ) {
-    item.onSetup = setupQuiz;
-    item.onStart = startQuiz;
-    item.onEnd = endQuiz;
-    item.onAnswer = answerQuiz;
-    console.log(item);
-  }
-});
-*/
-console.log("defaults");
+
 popcorn.defaults( "quiz", {
   onSetup: setupQuiz,
   onStart: startQuiz,
@@ -177,8 +166,9 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       config: "quiz.conf",
       ready: function( butter ){
         media = butter.media[ 0 ];
-
-        console.log("ready");
+        //Show the media element in Butter
+        var mediaEl = document.getElementById( "media" );
+        mediaEl.style.display = "block";
 
         //Wraps events in a canplayall event listener for export
         var wrapEvents = "canplayall";
