@@ -2,3 +2,4 @@ node_modules
 *~
 *.swp
 runtime.json
+public/butter

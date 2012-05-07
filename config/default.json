@@ -10,7 +10,7 @@
     "secret": "thisisareallyreallylongsecrettoencryptcookies"
   },
   "dirs": {
-    "wwwRoot": "./",
+    "wwwRoot": "public",
     "templates": "butter/templates",
     "publish": "view",
     "publishPrefix": "http://localhost:8888/view"
