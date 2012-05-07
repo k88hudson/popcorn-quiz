@@ -1,5 +1,5 @@
 function start(){
-  var track, popcorn, title, score, questions = [];
+  var track, popcorn, title, score, questions = [], playbutton, playing = false;
 
   popcorn = Popcorn.instances[0];
 
@@ -99,8 +99,8 @@ function start(){
   });
 
   playbutton = document.getElementById('playpause');
-  playbutton.addEventListener('click', function() {
-    console.log("sup");
+  playbutton.addEventListener('click', function( e ) {
+    e.preventDefault();
     if (playing) {
       if (!popcorn.paused()) {
         playing = false;
@@ -148,24 +148,38 @@ function start(){
       }
     }
   }, false);
+/*
+Popcorn.forEach( popcorn.data.trackEvents.byStart, function ( item ) {
+  if ( item._natives && item._natives.type === "quiz" ) {
+    item.onSetup = setupQuiz;
+    item.onStart = startQuiz;
+    item.onEnd = endQuiz;
+    item.onAnswer = answerQuiz;
+    console.log(item);
+  }
+});
+*/
+console.log("defaults");
+popcorn.defaults( "quiz", {
+  onSetup: setupQuiz,
+  onStart: startQuiz,
+  onEnd: endQuiz,
+  onAnswer: answerQuiz
+});
 
-  popcorn.defaults('quiz', {
-    onSetup: setupQuiz,
-    onStart: startQuiz,
-    onEnd: endQuiz,
-    onAnswer: answerQuiz
-  });
 
 }
 
 document.addEventListener( "DOMContentLoaded", function( e ){
-
+ 
   if(window.Butter) {
     Butter({
       config: "quiz.conf",
       ready: function( butter ){
-        var playbutton, playing = false,
-            media = butter.media[ 0 ];
+        media = butter.media[ 0 ];
+
+        //Wraps events in a canplayall event listener for export
+        butter.wrapEvents = "canplayall";
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
@@ -187,8 +201,11 @@ document.addEventListener( "DOMContentLoaded", function( e ){
     }
     else{
       media.addEventListener('canplay', function(e){
+        console.log("canplay")
         start();
       }, false);
+
     }
   }
+
 }, false );

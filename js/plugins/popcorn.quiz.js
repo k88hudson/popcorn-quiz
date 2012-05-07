@@ -270,6 +270,77 @@
 
 		base.container.appendChild(element);
 
+		// From template.js
+		var score, title, questions = [];
+
+	  function calculateScore() {
+	    var i, points = 0, outOf = 0;
+
+	    for (i = 0; i < questions.length; i++) {
+	      q = questions[i];
+	      if (q !== undefined) {
+	        outOf++;
+	        if (q) {
+	          points++;
+	        }
+	      }
+	    }
+			score.nodeValue = 'Score: ' + points + '/' + outOf;
+		  }
+
+		  function setupQuiz(options) {
+		    if (this.container) {
+		      this.container.setAttribute('data-butter-exclude', 'true');
+		    }
+		  }
+
+		  function startQuiz(b, options) {
+		    var i = b.allEvents.indexOf( b );
+		    console.log( "b", b, i );
+		    if (i >= 0) {
+		      title.nodeValue = 'Question ' + (i + 1) + ' of ' + b.allEvents.length;
+		    }
+		  }
+
+		  function endQuiz(b, options) {
+		    var i;
+		    title.nodeValue = '';
+		    console.log( b, calculateScore() );
+		    if (b.popcorn.data.currentTime < options.start) { //rewind
+		      i = b.allEvents.indexOf(b);
+		      if (i >= 0) {
+		        questions[i] = undefined;
+		        calculateScore();
+		      }
+		    }
+		  }
+
+		  function answerQuiz(options) {
+		    var q, i;
+
+		    i = this.allEvents.indexOf(this);
+		    if (i >= 0) {
+		      q = this.allEvents[i];
+		      questions[i] = (options.correct === options.answer);
+		    }
+
+		    calculateScore();
+		  }
+
+		  title = document.getElementById('question-title');
+		  if (!title.childNodes.length) {
+		    title.appendChild(document.createTextNode(''));
+		  }
+		  title = title.childNodes[0];
+
+		  score = document.getElementById('score');
+		  if (!score.childNodes.length) {
+		    score.appendChild(document.createTextNode(''));
+		  }
+		  score = score.childNodes[0];
+
+		  
+
 		return {
 			start: function( event, options ) {
 				base.addClass(base.container, 'active');
@@ -292,6 +363,7 @@
 					answer = -1;
 					base.removeClass(base.container, ['right', 'wrong']);
 				}
+
 			},
 			_teardown: function( options ) {
 				if (rightSound) {
