@@ -166,9 +166,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       config: "quiz.conf",
       ready: function( butter ){
         media = butter.media[ 0 ];
-        //Show the media element in Butter
-        var mediaEl = document.getElementById( "media" );
-        mediaEl.style.display = "block";
 
         //Wraps events in a canplayall event listener for export
         var wrapEvents = "canplayall";
