@@ -19,7 +19,7 @@ function setupPopcorn(){
 }
 
 function start(){
-  var track, title, score, questions = [], playbutton, playing = false;
+  var track, title, score, tweetButton, questions = [], playbutton, playing = false;
 
   //Help
   var helpButton = document.getElementById("help");
@@ -37,7 +37,7 @@ function start(){
       }
     }, false);
   }
-
+  
   function calculateScore() {
     var i, points = 0, outOf = 0;
 
@@ -191,7 +191,10 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           setupPopcorn();
         });
 
-        media.onReady( start );
+        media.onReady( function(){
+          _popcorn = media.popcorn.popcorn;
+          start();
+        } );
 
         window.butter = butter;
       }
