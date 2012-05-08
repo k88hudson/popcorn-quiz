@@ -1,7 +1,25 @@
-function start(){
-  var track, popcorn, title, score, questions = [], playbutton, playing = false;
+(function(){
 
-  popcorn = Popcorn.instances[0];
+var _popcorn;
+
+function setupPopcorn(){
+  window.popcorn = _popcorn;
+  _popcorn.on('play', function() {
+    playing = true;
+    playbutton.childNodes[0].className = 'icon-pause';
+    playbutton.childNodes[1].innerHTML = 'Pause Quiz';
+  });
+
+  _popcorn.on('pause', function() {
+    if (playing) {
+      playbutton.childNodes[0].className = 'icon-pause';
+      playbutton.childNodes[1].innerHTML = 'Pause Quiz';
+    }
+  });
+}
+
+function start(){
+  var track, title, score, questions = [], playbutton, playing = false;
 
   //Help
   var helpButton = document.getElementById("help");
@@ -52,7 +70,7 @@ function start(){
   function endQuiz(options) {
     var i;
     title.nodeValue = '';
-    if (this.popcorn.currentTime() < options.start) { //rewind
+    if (_popcorn.currentTime() < options.start) { //rewind
       i = this.allEvents.indexOf(this);
       if (i >= 0) {
         questions[i] = undefined;
@@ -85,33 +103,22 @@ function start(){
   }
   score = score.childNodes[0];
 
-  popcorn.on('play', function() {
-    playing = true;
-    playbutton.childNodes[0].className = 'icon-pause';
-    playbutton.childNodes[1].innerHTML = 'Pause Quiz';
-  });
-
-  popcorn.on('pause', function() {
-    if (playing) {
-      playbutton.childNodes[0].className = 'icon-pause';
-      playbutton.childNodes[1].innerHTML = 'Pause Quiz';
-    }
-  });
+  setupPopcorn();
 
   playbutton = document.getElementById('playpause');
   playbutton.addEventListener('click', function( e ) {
     e.preventDefault();
     if (playing) {
-      if (!popcorn.paused()) {
+      if (!_popcorn.paused()) {
         playing = false;
-        popcorn.pause();
+        _popcorn.pause();
         playbutton.childNodes[0].className = "icon-play";
         playbutton.childNodes[1].innerHTML = 'Play Quiz';
       }
       return;
     }
 
-    popcorn.play();
+    _popcorn.play();
   }, false);
 
 
@@ -123,8 +130,8 @@ function start(){
     if (typeof e.data === 'object' && e.data.msg === 'request-quiz-answers') {
       start = e.data.start;
       end = e.data.end;
-      if (popcorn && popcorn.data && popcorn.data.trackEvents) {
-        events = popcorn.data.trackEvents.byStart.filter(function(evt) {
+      if (_popcorn && _popcorn.data && _popcorn.data.trackEvents) {
+        events = _popcorn.data.trackEvents.byStart.filter(function(evt) {
           return evt._natives && evt._natives.type === 'quiz' &&
             evt.start <= end && evt.end > start;
         });
@@ -160,7 +167,7 @@ Popcorn.forEach( popcorn.data.trackEvents.byStart, function ( item ) {
 });
 */
 console.log("defaults");
-popcorn.defaults( "quiz", {
+_popcorn.defaults( "quiz", {
   onSetup: setupQuiz,
   onStart: startQuiz,
   onEnd: endQuiz,
@@ -171,7 +178,7 @@ popcorn.defaults( "quiz", {
 }
 
 document.addEventListener( "DOMContentLoaded", function( e ){
- 
+
   if(window.Butter) {
     Butter({
       config: "quiz.conf",
@@ -189,7 +196,11 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         media.addTrack( "Hints" );
         media.addTrack( "MediaLeft" );
         media.addTrack( "MediaRight" );
-        popcorn = media.popcorn.popcorn;
+
+        media.listen("mediaready", function(){
+          _popcorn = media.popcorn.popcorn;
+          setupPopcorn();
+        });
 
         media.onReady( start );
         
@@ -200,11 +211,13 @@ document.addEventListener( "DOMContentLoaded", function( e ){
   else {
     var media = document.getElementsByTagName('audio')[0];
     if(media.readyState === 4){
+      _popcorn = Popcorn.instances[0];
       start();
     }
     else{
       media.addEventListener('canplay', function(e){
         console.log("canplay")
+        _popcorn = Popcorn.instances[0];
         start();
       }, false);
 
@@ -212,3 +225,5 @@ document.addEventListener( "DOMContentLoaded", function( e ){
   }
 
 }, false );
+
+}());

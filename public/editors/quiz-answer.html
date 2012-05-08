@@ -27,7 +27,7 @@
     <script type="text/javascript">
       (function(){
         var _comm = new Comm(),
-          elementNames = ['target', 'answer', 'index', 'start', 'end'],
+          elementNames = ['target', 'answer', 'answer-error', 'start', 'end'],
           elements = {},
           start, end, answerIndex;
 
@@ -77,7 +77,6 @@
             start = popcornOptions.start;
             end = popcornOptions.end;
             answerIndex = popcornOptions.answer;
-            elements.index.value = answerIndex;
             elements.start.value = start;
             elements.end.value = end;
 
@@ -124,7 +123,7 @@
                 answers = e.data.answers;
 
                 if (answers.length) {
-                  elements.index.style.display = 'none';
+                  elements['answer-error'].style.display = 'none';
 
                   for( i = 0, l = answers.length; i < l; i++ ) {
                     answer = answers[i];
@@ -149,7 +148,6 @@
                   elements.answer.style.display = 'inline';
                 } else {
                   elements.answer.style.display = '';
-                  elements.index.style.display = '';
                 }
 
                 if (answerIndex === undefined) {
@@ -208,7 +206,7 @@
       </tr>
       <tr>
         <td>Answer</td>
-        <td><select id="answer"></select><input type="text" id="index"/></td>
+        <td><select id="answer"></select><span id="answer-error">Make sure this Answer event is situated inside the duration of at least one Quiz event and that the associated Quiz events have at least one answer between them.</span></td>
       </tr>
     </table>
     <p id="message"></p>
