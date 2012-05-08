@@ -3,6 +3,9 @@
 var _popcorn;
 
 function setupPopcorn(){
+  var playbutton, playing;
+  playbutton = document.getElementById("playpause");
+
   window.popcorn = _popcorn;
   _popcorn.on('play', function() {
     playing = true;
@@ -11,9 +14,10 @@ function setupPopcorn(){
   });
 
   _popcorn.on('pause', function() {
+    console.log("pause");
     if (playing) {
-      playbutton.childNodes[0].className = 'icon-pause';
-      playbutton.childNodes[1].innerHTML = 'Pause Quiz';
+      playbutton.childNodes[0].className = 'icon-play';
+      playbutton.childNodes[1].innerHTML = 'Play Quiz';
     }
   });
 }
@@ -37,7 +41,14 @@ function start(){
       }
     }, false);
   }
-  
+
+   //Tweet
+  tweetButton = document.createElement( "a" );
+  tweetButton.href = "https://twitter.com/share";
+  tweetButton.className = "twitter-share-button";
+  tweetButton.setAttribute( "data-via", "NewsHour" );
+  tweetButton.innerHTML = "Tweet this";
+
   function calculateScore() {
     var i, points = 0, outOf = 0;
 
@@ -108,16 +119,12 @@ function start(){
   playbutton = document.getElementById('playpause');
   playbutton.addEventListener('click', function( e ) {
     e.preventDefault();
-    if (playing) {
-      if (!_popcorn.paused()) {
-        playing = false;
-        _popcorn.pause();
-        playbutton.childNodes[0].className = "icon-play";
-        playbutton.childNodes[1].innerHTML = 'Play Quiz';
-      }
-      return;
+    if ( playing && playing === true ) {
+      playing = false;
+      _popcorn.pause();
+      return;  
     }
-
+    playing = true;
     _popcorn.play();
   }, false);
 
@@ -203,8 +210,8 @@ document.addEventListener( "DOMContentLoaded", function( e ){
   else {
     var media = document.getElementsByTagName('audio')[0];
     if(media.readyState === 4){
-      _popcorn = Popcorn.instances[0];
       start();
+      _popcorn = Popcorn.instances[0];
     }
     else{
         
