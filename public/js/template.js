@@ -155,18 +155,7 @@ function start(){
       }
     }
   }, false);
-/*
-Popcorn.forEach( popcorn.data.trackEvents.byStart, function ( item ) {
-  if ( item._natives && item._natives.type === "quiz" ) {
-    item.onSetup = setupQuiz;
-    item.onStart = startQuiz;
-    item.onEnd = endQuiz;
-    item.onAnswer = answerQuiz;
-    console.log(item);
-  }
-});
-*/
-console.log("defaults");
+
 _popcorn.defaults( "quiz", {
   onSetup: setupQuiz,
   onStart: startQuiz,
@@ -188,8 +177,8 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         //Wraps events in a canplayall event listener for export
         var wrapEvents = "canplayall";
         media.popcornScripts = { };
-        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", function( e ) { ';
-        media.popcornScripts.afterEvents = '});'
+        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", evts );\nfunction evts() { ';
+        media.popcornScripts.afterEvents = '\npopcorn.off( "'+wrapEvents+'", evts );\n}'
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
@@ -203,7 +192,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         });
 
         media.onReady( start );
-        
+
         window.butter = butter;
       }
     }); //Butter
@@ -215,11 +204,14 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       start();
     }
     else{
-      media.addEventListener('canplay', function(e){
-        console.log("canplay")
+        
+      media.addEventListener( 'canplay', canPlayStart ); 
+
+      function canPlayStart(){
         _popcorn = Popcorn.instances[0];
         start();
-      }, false);
+        media.removeEventListener( 'canplay', canPlayStart )
+      }
 
     }
   }
