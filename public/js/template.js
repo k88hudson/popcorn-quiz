@@ -23,7 +23,7 @@ function setupPopcorn(){
 }
 
 function start(){
-  var track, title, score, tweetButton, questions = [], playbutton, playing = false;
+  var track, title, score, questions = [], playbutton, playing = false;
 
   //Help
   var helpButton = document.getElementById("help");
@@ -42,13 +42,6 @@ function start(){
     }, false);
   }
 
-   //Tweet
-  tweetButton = document.createElement( "a" );
-  tweetButton.href = "https://twitter.com/share";
-  tweetButton.className = "twitter-share-button";
-  tweetButton.setAttribute( "data-via", "NewsHour" );
-  tweetButton.innerHTML = "Tweet this";
-
   function calculateScore() {
     var i, points = 0, outOf = 0;
 
@@ -63,6 +56,7 @@ function start(){
     }
 
     score.nodeValue = 'Score: ' + points + '/' + outOf;
+
   }
 
   function setupQuiz(options) {
