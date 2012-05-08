@@ -57,6 +57,19 @@ function start(){
 
     score.nodeValue = 'Score: ' + points + '/' + outOf;
 
+    var twitterContainer = document.getElementById("twitter");
+    twitterContainer.innerHTML = "";
+
+    var tweetButton = document.createElement( "a" );
+    tweetButton.href = "https://twitter.com/share";
+    tweetButton.className = "twitter-share-button";
+    tweetButton.setAttribute( "data-via", "NewsHour" );
+    tweetButton.setAttribute( "data-count", "none" );
+    tweetButton.innerHTML = "Tweet my score";
+    tweetButton.setAttribute( "data-text", "I got " + points + '/' + outOf + " on this quiz!");
+    console.log(tweetButton);
+    twitterContainer.appendChild( tweetButton );
+    twttr.widgets.load();
   }
 
   function setupQuiz(options) {

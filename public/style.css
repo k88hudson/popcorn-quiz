@@ -82,8 +82,6 @@ body {
 	float: right;
 }
 
-
-
 /* Video */
 .flex-video iframe, .flex-video object, .flex-video embed { width:100%; }
 .flex-video img { width: 100%; }
@@ -97,6 +95,7 @@ footer {
 	padding: 10px 0;
 	margin: 10px;
 }
+
 /* Form */
 ul.popcorn-quiz-options {
 	list-style: none;
@@ -138,6 +137,15 @@ ul.popcorn-quiz-options label{
 	margin-left: 5px;
 }
 
+/* Twitter */
+#twitter {
+	margin-left: 5px;
+}
+
+#twitter iframe {
+	top: 6px;
+	position: relative;
+}
 
 /* Tablet + */
 @media (min-width: 768px) {
