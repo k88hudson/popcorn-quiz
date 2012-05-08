@@ -68,10 +68,8 @@
             answerInputs = document.querySelectorAll('#answers input');
          
             for (i = 0; i < answerInputs.length; i++) {
-              console.log(answerInputs[i].value);
               if (answerInputs[i].value) {
                 answers.push(answerInputs[i].value);
-                console.log( "YO", answerInputs[i].value , elements.correct.value);
                 if (answerInputs[i].value === elements.correct.value) {
                   popcornOptions.correct = answers.length - 1;
                 }
