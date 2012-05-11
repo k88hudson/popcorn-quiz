@@ -261,13 +261,13 @@
 			explanation.innerHTML = options.explanation;
 			element.appendChild(explanation);
 		}
-
+		
 		button = document.createElement('button');
 		button.className = 'btn btn-large btn-primary';
 		button.appendChild(document.createTextNode('Continue >>'));
 		button.addEventListener('click', proceed);
 		element.appendChild(button);
-
+	
 		base.container.appendChild(element);
 
 		// From template.js
@@ -300,6 +300,7 @@
 		    if (i >= 0) {
 		      title.nodeValue = 'Question ' + (i + 1) + ' of ' + b.allEvents.length;
 		    }
+
 		  }
 
 		  function endQuiz(b, options) {
@@ -345,11 +346,9 @@
 			start: function( event, options ) {
 				base.addClass(base.container, 'active');
 				allowPause = true;
-			},
-			frame: function( event, options, time ) {
-				if (allowPause && (base.options.end - time <= 0.1)) {
+				popcorn.cue( base.options.end - 0.1, function() {
 					popcorn.pause();
-				}
+				});
 			},
 			end: function( event, options ) {
 				var i;

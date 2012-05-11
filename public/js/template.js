@@ -14,8 +14,8 @@ function setupPopcorn(){
   });
 
   _popcorn.on('pause', function() {
-    console.log("pause");
     if (playing) {
+      playing = false;
       playbutton.childNodes[0].className = 'icon-play';
       playbutton.childNodes[1].innerHTML = 'Play Quiz';
     }
@@ -67,7 +67,7 @@ function start(){
     tweetButton.setAttribute( "data-count", "none" );
     tweetButton.innerHTML = "Tweet my score";
     tweetButton.setAttribute( "data-text", "I got " + points + '/' + outOf + " on this quiz!");
-    console.log(tweetButton);
+   
     twitterContainer.appendChild( tweetButton );
     twttr.widgets.load();
   }
@@ -183,16 +183,21 @@ _popcorn.defaults( "quiz", {
 document.addEventListener( "DOMContentLoaded", function( e ){
 
   if(window.Butter) {
+
+
+    function popcornWrapper( media ) {
+      //Wraps events in a canplayall event listener for export
+      var wrapEvents = "canplayall";
+      media.popcornScripts = { };
+      media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", evts );\nfunction evts() { ';
+      media.popcornScripts.afterEvents = '\npopcorn.off( "'+wrapEvents+'", evts );\n}'
+    }
+       
     Butter({
       config: "quiz.conf",
       ready: function( butter ){
         media = butter.media[ 0 ];
-
-        //Wraps events in a canplayall event listener for export
-        var wrapEvents = "canplayall";
-        media.popcornScripts = { };
-        media.popcornScripts.beforeEvents = 'popcorn.on( "'+wrapEvents+'", evts );\nfunction evts() { ';
-        media.popcornScripts.afterEvents = '\npopcorn.off( "'+wrapEvents+'", evts );\n}'
+        popcornWrapper( media );
 
         track = media.addTrack( "Questions" );
         media.addTrack( "Answers" );
@@ -209,6 +214,10 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           _popcorn = media.popcorn.popcorn;
           start();
         } );
+
+        butter.listen("mediachanged", function(e) {
+          popcornWrapper( e.data );
+        }, false);
 
         window.butter = butter;
       }
