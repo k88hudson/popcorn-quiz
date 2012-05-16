@@ -18,42 +18,39 @@
       })
   *
   */
-( function ( Popcorn, global ) {
+(function ( Popcorn, global ) {
   var PLAYER_URL = "http://popcornjs.org/code/modules/player/popcorn.player.js",
-    urlRegex = /(?:http:\/\/www\.|http:\/\/|www\.|\.|^)(youtu|vimeo|soundcloud)/,
-    youtubeScript, vimeoScript, soundcloudScript, playerModuleScript;
+      urlRegex = /(?:http:\/\/www\.|http:\/\/|www\.|\.|^)(youtu|vimeo|soundcloud)/,
+      loadingPlayer,
+      loadingYoutube,
+      loadingSoundcloud,
+      loadingVimeo;
 
-  youtubeScript = vimeoScript = soundcloudScript = playerModuleScript = false;
+  loadingPlayer = loadingVimeo = loadingSoundcloud = loadingYoutube = false;
 
-  var setPlayerTypeLoaded = {
-    vimeo: function ( ) {
-      vimeoScript = true;
+  var setPlayerTypeLoading = {
+    vimeo: function() {
+      loadingVimeo = true;
     },
-    soundcloud: function ( ) {
-      soundcloudScript = true;
+    soundcloud: function() {
+      loadingSoundcloud = true;
     },
-    youtube: function ( ) {
-      youtubeScript = true;
+    youtube: function() {
+      loadingYoutube = true;
     }
   };
 
-  var isPlayerTypeLoaded = {
-    vimeo: function ( ) {
-      return vimeoScript;
+  var isPlayerTypeLoading = {
+    vimeo: function() {
+      return loadingVimeo;
     },
-    soundcloud: function ( ) {
-      return soundcloudScript;
+    soundcloud: function() {
+      return loadingSoundcloud;
     },
-    youtube: function ( ) {
-      return youtubeScript;
+    youtube: function() {
+      return loadingYoutube;
     }
-  }
-
-  function addScript( url ) {
-    var script = document.createElement( "script" );
-    script.src = url;
-    document.head.appendChild( script );
-  }
+  };
 
   Popcorn.plugin( "mediaspawner", {
     manifest: {
@@ -67,190 +64,194 @@
         source: {
           elem: "input",
           type: "text",
-          label: "Media Source:"
+          label: "Media Source"
         },
         caption: {
           elem: "input",
           type: "text",
-          label: "Media Caption:"
+          label: "Media Caption",
+          optional: true
         },
         target: "mediaspawner-container",
         start: {
           elem: "input",
           type: "number",
-          label: "Start_Time"
+          label: "Start"
         },
         end: {
           elem: "input",
           type: "number",
-          label: "End_Time"
+          label: "End"
+        },
+        autoplay: {
+          elem: "select",
+          options: [ "TRUE", "FALSE" ],
+          label: "Autoplay Video: ",
+          optional: true
         }
       }
     },
-    _setup: function ( options ) {
+    _setup: function( options ) {
       var target = document.getElementById( options.target ),
           caption = options.caption || "",
-          mediaType;
+          mediaType,
+          container;
 
       // Check if mediaSource is passed and mediaType is NOT audio/video
-      !options.source && Popcorn.error( "Error. Source must be specified." );
+      if ( !options.source ) {
+        Popcorn.error( "Error. Source must be specified." );
+      }
+
+      // If it's an HTML Video/Audio check if they passed a correct type
+      if ( typeof options.source === "object" && !/audio|video/.exec( options.source.type ) ) {
+          Popcorn.error( "Error. Type must be Video or Audio" );
+      }
 
       // Check if target container exists
-      ( !target && Popcorn.plugin.debug ) && Popcorn.error( "Target MediaSpawner container doesn't exist." );
-
-      // Create seperate container for plugin
-      options._container = document.createElement( "div" );
-      options._container.id = "mediaSpawnerdiv-" + Popcorn.guid( );
-      options._container.innerHTML = caption;
-      document.body.appendChild( options._container );
-      options._container.style.display = "none";
-      target && target.appendChild( options._container );
-
-      // Change target reference to the id of the new container we created
-      target = options._container.id;
-
-      function findMediaType( url ) {
-        var regexResult = urlRegex.exec( url );
-        if ( regexResult ) {
-          mediaType = regexResult[ 1 ];
-        } else {
-          mediaType = "object";
-        }
+      if ( !target ) {
+        Popcorn.error( "Target MediaSpawner container doesn't exist." );
       }
-      findMediaType( options.source );
+
+      // Create separate container for plugin
+      options._container = document.createElement( "div" );
+      container = options._container;
+      container.id = "mediaSpawnerdiv-" + Popcorn.guid();
+      container.innerHTML = caption;
+      container.style.display = "none";
+      target && target.appendChild( container );
+
+      var regexResult = urlRegex.exec( options.source );
+      if ( regexResult ) {
+        mediaType = regexResult[ 1 ];
+      } else {
+        mediaType = "object";
+      }
 
       // Store Reference to Type for use in end
       options.type = mediaType;
 
-      function flashCallback( type ) {
-        var script;
-
+      function playerReadyCallback( type ) {
         // our regex only handles youtu ( incase the url looks something like youtu.be )
         if ( type === "youtu" ) {
           type = "youtube";
-        }
 
-        if ( !window.Popcorn[ type ] && !isPlayerTypeLoaded[ type ]( ) ) {
-          script = document.createElement( "script" );
-          script.src = "http://popcornjs.org/code/players/" + type + "/popcorn." + type + ".js";
-          document.head.appendChild( script );
-          setPlayerTypeLoaded[ type ]( );
-        }
-
-        // If player type script needed to be loaded, keep checking that is has before calling
-        // Popcorn.smart
-        function checkPlayerTypeLoaded( ) {
-          if ( !window.Popcorn[ type ] ) {
-            checkPlayerTypeLoaded( );
-          } else {
-            options.popcorn = Popcorn.smart( "#" + target, options.source );
+          // Youtube has to deal with nonsense about playreadyState, however will work if I append
+          // a flag for it so, this is an easier solution
+          if ( options.autoplay ) {
+            options.source += "&autoplay=1";
           }
         }
 
-        setTimeout( checkPlayerTypeLoaded, 300 );
+        function initialize(){
+          options.id = options._container.id;
+          options.popcorn = Popcorn.smart( "#" + options.id, options.source );          
+        }
+
+        function checkPlayerTypeLoaded() {
+          if ( !window.Popcorn[ type ] ) {
+            setTimeout( function() {
+              checkPlayerTypeLoaded();
+            }, 300 );
+          } else {
+            initialize();
+          }
+        }
+
+        if ( type !== "object" ) {
+          if ( !window.Popcorn[ type ] && !isPlayerTypeLoading[ type ]() ) {
+            setPlayerTypeLoading[ type ]();
+            Popcorn.getScript( "http://popcornjs.org/code/players/" + type + "/popcorn." + type + ".js", function() {
+              checkPlayerTypeLoaded();
+            });
+          }
+          else {
+            checkPlayerTypeLoaded();
+          }
+        }
+        else{
+          initialize();
+        }
       }
 
-      function html5CallBack( ) {
-        if( options.source.type === "video" ) {
-          var video = document.createElement( "video" ),
-              src,
-              info,
-              mimeType;
+      function html5CallBack() {
+        var element = document.createElement( options.type ),
+            src;
 
-          video.poster = options.source.poster;
-          video.controls = options.source.controls;
-          mimeType = options.source.sources;
+        element.poster = options.poster || "";
+        element.controls = options.controls || "";
 
-          for( info in mimeType ) {
-            src = document.createElement( "source" );
-            src.id = mimeType[ info ].id;
-            src.src = mimeType[ info ].src;
-            src.type = mimeType[ info ].type;
-            src.codecs = mimeType[ info ].codecs;
+        Popcorn.forEach( options.sources, function( value, key, item ) {
+          src = document.createElement( "source" );
+          src.id = value.id || "";
+          src.src = value.src || "";
+          src.type = value.type || "";
+          src.codecs = value.codecs || "";
 
-            video.appendChild( src );
-          }
+          element.appendChild( src );
+        });
 
-          options._container.appendChild( video );
-        }
-        else {
-          var audio = document.createElement( "audio" ),
-              src,
-              info,
-              mimeType;
-
-          audio.controls = options.source.controls;
-          mimeType = options.source.sources;
-      
-          for( info in mimeType ) {
-            src = document.createElement( "source" );
-            src.src = mimeType[ info ].src;
-            src.type = mimeType[ info ].type;
-
-            audio.appendChild( src );
-          }
-
-          options._container.appendChild( audio );
-        }
+        container.appendChild( element );
+        options.id = element.id = "mediaspawner-" + Popcorn.guid();
       }
 
       // If Player script needed to be loaded, keep checking until it is and then fire readycallback
-      function isPlayerReady( ) {
+      function isPlayerReady() {
         if ( !window.Popcorn.player ) {
-          setTimeout( function ( ) {
-            isPlayerReady( );
+          setTimeout( function () {
+            isPlayerReady();
           }, 300 );
         } else {
-          playerModuleScript = true;
-          if( mediaType !== "object" ) {
-            flashCallback( mediaType );
-          }
-          else {
-            html5CallBack( );
-          }
+          playerReadyCallback( mediaType );
+          // if( mediaType !== "object" ) {
+          //   flashCallback( mediaType );
+          // }
+          // else {
+          //   html5CallBack();
+          // }
         }
       }
 
       // If player script isn't present, retrieve script
-      if ( !window.Popcorn.player && !playerModuleScript ) {
-        addScript( PLAYER_URL );
-        isPlayerReady( );
+      if ( !window.Popcorn.player && !loadingPlayer ) {
+        loadingPlayer = true;
+        Popcorn.getScript( PLAYER_URL, function() {
+          isPlayerReady();
+        });
       } else {
-        if( mediaType !== "object" ) {
-          flashCallback( mediaType );
-        }
-        else {
-          html5CallBack( );
-        }
+        isPlayerReady();
       }
 
     },
-    start: function ( event, options ) {
-      if (options._container) {
+    start: function( event, options ) {
+      if ( options._container ) {
         options._container.style.display = "";
       }
+
+      // If its an HTML Video/Audio
+      if ( options.autoplay && options.type === "object" ) {
+        document.getElementById( options.id ).play();
+      }
+      // It's a flash based player
+      else if ( options.autoplay ) {
+        options.popcorn.play();
+      }
     },
-    end: function ( event, options ) {
+    end: function( event, options ) {
       if ( options._container ) {
         options._container.style.display = "none";
       }
 
+      // The Flash Players automagically pause themselves on end already but because these videos we create
+      // aren't tied directly to Popcorn instances we have to manually retrieve them ourselves
       if ( options.type === "object" ) {
-        var media;
-
-        if( options.source.type === "video" ) {
-          media = options._container.getElementsByTagName( "video" )[ 0 ];
-          media.pause( );
-        }
-        else if( options.source.type === "audio" ) {
-          media = options._container.getElementsByTagName( "audio" )[ 0 ];
-          media.pause( );
-        }
+        document.getElementById( options.id ).pause();
       }
     },
-    _teardown: function ( options ) {
-      options.popcorn && options.popcorn.destory && options.popcorn.destroy( );
+    _teardown: function( options ) {
+      if ( options.popcorn && options.popcorn.destory ) {
+        options.popcorn.destroy();
+      }
       document.getElementById( options.target ) && document.getElementById( options.target ).removeChild( options._container );
     }
   });
-})(Popcorn, this);
+})( Popcorn, this );
