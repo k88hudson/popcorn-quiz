@@ -48,6 +48,7 @@
 	}
 
 	Popcorn.basePlugin( 'quiz' , function(options, base) {
+
 		var popcorn = this,
 			media = popcorn.media,
 			guid,
@@ -347,9 +348,11 @@
 			start: function( event, options ) {
 				base.addClass(base.container, 'active');
 				allowPause = true;
-				popcorn.cue( base.options.end - 0.1, function() {
+			},
+			frame: function(event, options, time) {
+				if (allowPause && (base.options.end - time <= 0.1)) {
 					popcorn.pause();
-				});
+				}
 			},
 			end: function( event, options ) {
 				var i;
@@ -366,6 +369,7 @@
 
 			},
 			_teardown: function( options ) {
+				console.log("teardown");
 				if (rightSound) {
 					rightSound.count--;
 				}
