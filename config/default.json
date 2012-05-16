@@ -12,7 +12,7 @@
   "dirs": {
     "wwwRoot": "public",
     "templates": "butter/templates",
-    "publish": "view",
+    "publish": "public/view",
     "publishPrefix": "http://localhost:8888/view"
   },
   "environment": {

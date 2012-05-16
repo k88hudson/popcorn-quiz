@@ -1,8 +1,9 @@
-(function(){
+(function(Butter){
 
 var _popcorn;
 
 function setupPopcorn(){
+
   var playbutton, playing;
   playbutton = document.getElementById("playpause");
 
@@ -23,6 +24,7 @@ function setupPopcorn(){
 }
 
 function start(){
+
   var track, title, score, questions = [], playbutton, playing = false;
 
   //Help
@@ -219,6 +221,12 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           popcornWrapper( e.data );
         }, false);
 
+        var t = new Butter.Template();
+        t.debug = true;
+        t.name = "NewsHour";
+        t.debug && ( window.t = t );
+        t.butter = butter;
+
         window.butter = butter;
       }
     }); //Butter
@@ -244,4 +252,4 @@ document.addEventListener( "DOMContentLoaded", function( e ){
 
 }, false );
 
-}());
+}(window.Butter));

@@ -340,6 +340,7 @@
 		  }
 		  score = score.childNodes[0];
 
+		  //console.log(base.options.question);
 		  
 
 		return {
