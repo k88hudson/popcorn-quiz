@@ -221,12 +221,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           popcornWrapper( e.data );
         }, false);
 
-        var t = new Butter.Template();
-        t.debug = true;
-        t.name = "NewsHour";
-        t.debug && ( window.t = t );
-        t.butter = butter;
-
         window.butter = butter;
       }
     }); //Butter
