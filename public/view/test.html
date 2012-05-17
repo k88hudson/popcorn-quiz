@@ -1,0 +1,959 @@
+<html><head><base href="http://localhost:8888/">
+    <meta charset="utf-8">
+    <title>PBS Newshour Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+    #media { display: none; }
+
+    .popcorn-quiz-explanation {
+      text-align: center; /* Center the "Continue" button */
+    }
+
+    .popcorn-quiz-explanation > div {
+      margin: 20px 0;
+      text-align: left; /* Center the "Continue" button, but not the text */
+    }
+
+    #explanation-left {
+      float: right;
+    }
+
+    #questions {
+      background: none;
+      border-radius: 0;
+      padding: 0;
+      border: none;
+    }
+
+    .hero-unit {
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.5);
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      border: 8px solid 
+      rgba(255, 255, 255, 0.2);
+
+    }
+
+    </style>
+
+    
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <script type="text/javascript" src="js/external/popcorn.js"></script>
+    
+     <script type="text/javascript" src="js/template.production.js"></script>
+    
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+  <link rel="stylesheet" href="butter/css/butter.ui.css"><script src="js/external/popcorn-js/modules/player/popcorn.player.js" type="text/javascript"></script><script src="js/plugins/popcorn.quiz.production.js"></script><script src="js/plugins/popcorn.quiz-answer.production.js"></script><script src="js/external/popcorn.mediaspawner.js"></script><script src="js/plugins/popcorn.supertext.hint.js"></script><script src="js/external/plugins/popcorn.image.js"></script></head><body data-twttr-rendered="true">
+ <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="help"></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+    
+      <div class="container">
+
+        <div class="row">
+          <div class="span6">
+            <h4 class="quiz-title">
+              <span id="question-title">Start the Quiz</span> <span class="label label-success"><span id="score">Score:</span></span><span id="twitter"></span>
+            </h4>
+          </div>
+          <div id="media-container" class="span3 offset2">
+             <audio id="media" controls="" src="http://localhost:8888/audio/robotquiz.mp3">
+              <source src="audio/robotquiz.mp3" type="audio/mp3">
+              <!-- todo: flash audio player for ie8 -->
+            </audio>
+          </div>
+        </div>
+        <section id="main" class="hero-unit">
+        <!-- begin quiz -->
+
+        <div id="questions">
+            <p> <a id="playpause" class="btn btn-large actionbutton"><i class="icon-play"></i><span class="hidden-phone">Play Quiz</span></a></p>
+        </div>
+        <div id="questions-answers"></div>
+        <!-- end quiz -->
+
+        <div id="quiz-hint-container" class="row">
+          <div id="quiz-hint" class="span12">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span6">
+            <div id="media1" class="flex-video">     
+            </div>
+          </div>
+           <div class="span6">
+            <div id="media2" class="flex-video">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div id="explanation-left"></div>
+          <div id="explanation-right"></div>
+        </div>
+
+        </section>
+         <div class="row">
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+          <div class="span4">
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a href="#" class="btn">Learn More »</a></p>
+          </div>
+        </div>
+
+         <footer>
+          <p>© PBS Newshour 2012</p>
+         </footer>
+
+      </div> <!-- /container -->
+
+
+<script type="text/javascript">(function(){
+var popcorn = Popcorn.smart( '#media', 'http://www.pbs.org/newshour/rss/media/mozilla/audiotrack2.mp3', {} );
+popcorn.on( "canplayall", evts );
+function evts() { 
+popcorn.image({
+  "start": 0,
+  "end": 22.01,
+  "href": "",
+  "target": "media1",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/08/usethisgreenband_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.quiz({
+  "question": "A few candidates’ ads looked and sounded like movie trailers, but who was the only candidate to use the familiar green band at the beginning of his ads? ",
+  "explanation": "<p>While Pawlenty and Perry ads resembled the bombastic sound and vision of movie trailers, the visuals — wheat fields, church crosses, Old Glory — are not party-specific, conventional symbols within American political advertising. By contrast, Ron Paul ads have a style unseen in past ads.</p>\n\n<p><a href=\"http://www.youtube.com/watch?v=eJeH1W4rI7Y\" target=\"_blank\"><strong>Typography overwhelms the viewer</strong></a> in one ad, while the <a href=\"http://www.youtube.com/watch?v=vlGKk2_I0Zs&feature=youtu.be\" target=\"_blank\"><strong>Department of Education blows up </strong></a> in another. The youthful energy level of Paul ads was unmatched in the 2012 primary.</p>\n\n<p>\"It is definitely appealing to a younger group who is very comfortable with different production techniques,\" UNC professor Anne Johnston said. \"He's taking advantage of thinking about a young audience familiar with edgy graphics.\"</p>\n\n<p>\"We think of it as controversial, but there’s an audience that’s very comfortable with those visuals,\" she added.</p>",
+  "answers": [
+    "Tim Pawlenty",
+    "Rick Perry",
+    "Ron Paul"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 0,
+  "end": 22.04
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 10.84,
+  "end": 12.15
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 12.16,
+  "end": 13.66
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 13.68,
+  "end": 14.98
+});
+popcorn.hint({
+  "text": "“In a world … where a doctor didn’t win a single state primary.”",
+  "start": 15.91,
+  "end": 22.03,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.quiz({
+  "question": "Which campaign's ad featured President Obama’s face superimposed over an image of Iranian President Mahmoud Ahmadinejad?",
+  "explanation": "<p>Rick Santorum's Hitchcockian cautionary tale, in which President Barack Obama is re-elected, is a cavalcade of disturbing images: desolate streets, a masked surgeon, a man holding a gas pump to his head and, on closer inspection, raw meat being extracted from a meat grinder. These split-second images flash amid shots of horror mainstays such as ravens.</p>\n\n<p>Later in the ad, when the voiceover says \"sworn American enemy,\" images of Iranian President Mahmoud Ahmadinejad flash on the screen of a TV set. Juxtaposed in a very quick edit, President Obama appears before reverting back to images of Ahmadinejad again.</p>\n\n<p>Despite its namesake, the ad is not about defeating Mr. Obama, Jessica Lu said in her <a href=\"http://parc.umd.edu/2012-ad-analyses/santorum-for-president-obamaville/\" target=\"_blank\"><strong>online analysis</strong></a> of the ad for the Political Advertising Resource Center, University of Maryland’s political ad analysis project.</p>\n\n<p>\"Though it likely reinforces anti-Obama sentiments among conservative voters, the exaggerated, almost-parodic horror mood of the spot certainly targets Republican primary voters,\" she said.</p>\n\n<p>At the time, Santorum needed to outshine the Republican frontrunner, Mitt Romney. Unable to shake Romney’s lead, <a href=\"http://www.youtube.com/watch?v=YcaB6JSfnGE\" target=\"_blank\"><strong>\"Obamaville\"</strong></a> ended up being the last, major political ad from the Santorum campaign. It was the first entry in a planned 8-part series.</p>",
+  "answers": [
+    "Michele Bachmann",
+    "Rick Santorum",
+    "Ron Paul"
+  ],
+  "correct": 1,
+  "target": "questions",
+  "start": 22.05,
+  "end": 36.19
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=OHk_CixurW8",
+  "caption": "",
+  "target": "media1",
+  "start": 22.12,
+  "end": 36.14,
+  "autoplay": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 31.35,
+  "end": 32.81
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 32.84,
+  "end": 34.71
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 34.73,
+  "end": 36.04
+});
+popcorn.quiz({
+  "question": "Which symbol has appeared in Republican candidate ads this year to represent American jobs?",
+  "explanation": "<p>Throughout the GOP presidential primary, welders seemed to pop up in ads whenever a voice over mentioned the economy or jobs in ads. Media consultant Mike Fletcher said the character is shorthand for Americans at work, but the image could also be nothing more than visual pomp.</p>\n\n\n<p>\"Why not use a plumber? Well, that’s kind of a boring shot,\" he said. \"There’s no rhyme nor reason for it, except that visually [welders and sparks] are interesting.\"</p>\n\n<p>LSU professor Robert Mann, too, cautions against meticulous inspection of, say, the oft-recycled wheat field image.</p>\n\n<p>\"Sometimes, campaign advertising is kind of like poetry: You can over-analyze it,\" he said. \"Sometimes stuff looks brilliant and Machiavellian and very manipulative in ways it may just be they didn’t have anything better to throw in there.\"</p>",
+  "answers": [
+    "The farmer",
+    "Fireworks",
+    "The welder",
+    "American flags"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 36.21,
+  "end": 56.62
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 44.18,
+  "end": 45.98
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 45.98,
+  "end": 47.87
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 47.87,
+  "end": 49.44
+});
+popcorn.answer({
+  "answer": 3,
+  "target": "questions",
+  "start": 49.47,
+  "end": 51.09
+});
+popcorn.hint({
+  "text": "The more sparks, the better.",
+  "start": 52.1,
+  "end": 56.4,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.image({
+  "start": 55.47,
+  "end": 56.48,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/09/rwelderpic_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=hU-12zYYQcw",
+  "caption": "",
+  "target": "media1",
+  "start": 56.63,
+  "end": 64.13
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=C92uKD74FV0",
+  "caption": "",
+  "target": "media2",
+  "start": 56.63,
+  "end": 64.12,
+  "autoplay": ""
+});
+popcorn.quiz({
+  "question": "Which welder appeared in a Rick Santorum ad?",
+  "explanation": "<p>Rick Perry and Rick Santorum used the same stock footage of a female welder. The welder on the left appeared in Santorum's <a href=\"http://www.youtube.com/watch?v=4P6sTChh3Ck&feature=youtu.be\" target=\"_blank\"><strong>\"Best Chance\"  ad.</strong></a> The welder on the right appeared in Perry's <a href=\"http://www.youtube.com/watch?v=nZNvIdl7Gtw\" target=\"_blank\"><strong>\"Momentum\"  ad.</strong></a> </p>",
+  "answers": [
+    "Left welder",
+    "Right welder"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 56.63,
+  "end": 64.14
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 60.55,
+  "end": 62.41
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 62.41,
+  "end": 64.02
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=JsqK_47HbJM",
+  "caption": "",
+  "target": "media1",
+  "start": 64.14,
+  "end": 77.61
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=bj6gTeYn0MY",
+  "caption": "",
+  "target": "media2",
+  "start": 64.14,
+  "end": 77.61
+});
+popcorn.quiz({
+  "question": "Which welder appeared in a Mitt Romney ad?",
+  "explanation": "<p>The welder on the left appeared in Gingrich's <a href=\"http://youtu.be/Zw2YBSDeeJM\" target=\"_blank\"><strong>\"Timid vs. Bold\"  ad.</strong></a> The welder on the right appeared in Romney's <a href=\"http://www.youtube.com/watch?v=kTPHRRNxiWM\" target=\"_blank\"><strong>\"Believe in America\"  ad.</strong></a></p>",
+  "answers": [
+    "Left welder",
+    "Right welder"
+  ],
+  "correct": 1,
+  "target": "questions",
+  "start": 64.15,
+  "end": 77.62
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 68.16,
+  "end": 70.12
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 70.12,
+  "end": 71.81
+});
+popcorn.hint({
+  "text": "Maybe this is a trick question.",
+  "start": 71.8,
+  "end": 77.36,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.quiz({
+  "question": "Which presidential candidate did not appear in his series of pre-announcement ads?",
+  "explanation": "",
+  "answers": [
+    "Jon Huntsman",
+    "Ron Paul",
+    "Mitt Romney",
+    "Newt Gingrich"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 77.63,
+  "end": 97.73
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 84.61,
+  "end": 86.51
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 86.53,
+  "end": 88.26
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 88.27,
+  "end": 90.28
+});
+popcorn.answer({
+  "answer": 3,
+  "target": "questions",
+  "start": 90.31,
+  "end": 91.96
+});
+popcorn.hint({
+  "text": "VROOOM!",
+  "start": 92.25,
+  "end": 97.53,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.quiz({
+  "question": "Who or what did appear instead?",
+  "explanation": "<p>When launching presidential campaigns, candidates are quite visible in their initial ads such as shaking hands with supporters or <a href=\"http://youtu.be/69WONzFTnbo\" target=\"_blank\"><strong>speaking from a lectern</strong></a>. Jon Huntsman, instead, released a series of Web videos that merely teased his official Republican presidential bid. Not once does he appear in them. <a href=\"http://www.youtube.com/watch?v=W84Oi_9s6L8\" target=\"_blank\"><strong>Huntsman’s motorcycle, though, does.</strong></a></p>\n\n<p>Enlisting the help of Fred Davis of <a href=\"http://www.youtube.com/watch?v=u784PlIkRsU\" target=\"_blank\"><strong>\"Demon Sheep\" fame</strong></a>, the ads were simple in their execution: shots of a person on an off-road bike, idyllic terrain and morsels of information provided about Huntsman — \"Did not become famous with his band ‘Wizard.’\"</p>\n\n<p>But as telegraphed in his debate performances, Huntsman was unable to stand out.</p>",
+  "answers": [
+    "Blue collar workers",
+    "A goldfish",
+    "A motorcycle",
+    "Children"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 97.75,
+  "end": 108.4
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 101.64,
+  "end": 103.4
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 103.4,
+  "end": 105.25
+});
+popcorn.image({
+  "start": 104.61,
+  "end": 108.14,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/09/motorcycle_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 105.26,
+  "end": 106.78
+});
+popcorn.answer({
+  "answer": 3,
+  "target": "questions",
+  "start": 106.8,
+  "end": 108.24
+});
+popcorn.quiz({
+  "question": "Whose attack ad spoofed a Sylvester Stallone action hero?",
+  "explanation": "<p>Throughout the GOP presidential primary, Mitt Romney’s campaign markedly relied on negative advertising, with the pro-Romney Restore Our Future super PAC leading the attacks.</p>\n\n<p>Anticipating a barrage of attack ads before the Michigan primary, Rick Santorum’s campaign released <a href=\"http://www.youtube.com/watch?v=2hn56m5cJ_E\" target=\"_blank\"<strong>\"Rombo,\"</strong></a> which recasts the former Massachusetts governor as an unchecked mudslinger. Rombo, a Romney lookalike, never hits his target, Santorum.</p>\n\n<p>\"['Rombo'] was a whimsical, light-hearted ad, which is interesting because it was an attack ad,\" Jessica Lu, a contributor to University of Maryland’s political ad analysis project, said. \"If [Santorum’s campaign] had come out with a very somber, very traditional negative attack ad about someone attacking other people, it would have failed miserably.\"</p>",
+  "answers": [
+    "Mitt Romney",
+    "Newt Gingrich",
+    "Rick Santorum"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 108.41,
+  "end": 121.56
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=gSS3Hnu-W_E",
+  "caption": "",
+  "target": "questions",
+  "start": 108.42,
+  "end": 121.44
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 114.31,
+  "end": 115.65
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 115.66,
+  "end": 117.11
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 117.11,
+  "end": 118.51
+});
+popcorn.image({
+  "start": 117.97,
+  "end": 121.36,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/09/santorummudslinging_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.hint({
+  "text": "I don't know, Google it.",
+  "start": 118.56,
+  "end": 121.33,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.quiz({
+  "question": "What's a candidate without his crowd of supporters? Which crowd appeared in a Mitt Romney ad?",
+  "explanation": "<p>Images from the campaign trail can be curated affairs, right down to the crowd shots. During a 2008 rally, then-Sen. Barack Obama apologized to two women who were denied from sitting behind the candidate in view of photographers and TV cameras because they were <a href=\"http://thecaucus.blogs.nytimes.com/2008/06/19/obama-calls-muslim-women-barred-from-stage/\" target=\"_blank\"><strong>wearing traditional headscarves</strong></a>. The subject of crowds came up again during the 2008 general election when presidential candidate Sen. John McCain used <a href=\"http://www.huffingtonpost.com/christina-bellantoni/black-obama-fan-in-mccain_b_116897.html\" target=\"_blank\"><strong>crowd shots of mostly black Americans in an ad </strong></a> to question Mr. Obama’s popularity.</p>\n\n<p>The make-up of Mitt Romney’s crowds in his ads tend to skew white. The sea of faces, though, became more diverse when he targeted Latinos, the largest minority in the U.S.,  for the Florida primary. <a href=\"http://youtu.be/jhirlgPR2oA\" target=\"_blank\"><strong>\"Nosotros,\"</strong></a> in particular, is also narrated in Spanish by his son, Craig Romney.</p>",
+  "answers": [
+    "Left crowd",
+    "Right crowd"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 121.6,
+  "end": 132.05
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=ves44eZ0YJY",
+  "caption": "",
+  "target": "media1",
+  "start": 121.61,
+  "end": 132.08
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=PkwFTycCMRQ",
+  "caption": "",
+  "target": "media2",
+  "start": 121.61,
+  "end": 132.08,
+  "autoplay": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 128.34,
+  "end": 130.12
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 130.12,
+  "end": 131.74
+});
+popcorn.quiz({
+  "question": "Political logos represent a candidate’s brand and can define campaigns. Which logo represented then-Democratic presidential candidate Barack Obama in 2008?",
+  "explanation": "<p>\"For presidential candidates, they need to make [a logo] that can very concisely convey something of their own political standpoint, their direction, their values,\" said Michael Evamy, author of \"Logo.\"</p> \n\n<p>The logo is often one of the first things a campaign starts to create, he added.</p>\n\n<p>The crux of then-presidential candidate Barack Obama’s 2008 branding was the pictorial \"O.\" President Obama recycled the recognizable logo for his 2012 campaign slogan \"Forward.\"</p>\n\n<p>\"The Obama symbol was the rising run over rural America [signifying hope]. It was a strong message there,\" Evamy said.</p>\n\n<p>The other logo is Pepsi’s latest logo design that was, too, unveiled in 2008.</p>\n\n",
+  "answers": [
+    "Left logo",
+    "Right logo"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 132.1,
+  "end": 151.11
+});
+popcorn.image({
+  "start": 132.33,
+  "end": 150.99,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/Pepsi-Logo_homepage_lede.png",
+  "text": ""
+});
+popcorn.image({
+  "start": 132.34,
+  "end": 150.98000000000002,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/logo1_homepage_lede.png",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 143.9,
+  "end": 145.76
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 145.75,
+  "end": 147.73
+});
+popcorn.hint({
+  "text": "Hope can be seen in the rising sun?",
+  "start": 147.72,
+  "end": 150.84,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.image({
+  "start": 148.51,
+  "end": 151,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/obamaforward_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.quiz({
+  "question": "Which of these fancy letters was a part of Ron Paul's campaign logo?",
+  "explanation": "<p>\"When you design [logos], what you're trying to do is appeal to people that maybe hadn't looked at you before,\" Michael Evamy said.</p>\n\n<p>Both Ron Paul and Mitt Romney used traditional typefaces, which can result in a nondescript logo. But a letter was singled out in each candidate’s logo to garner more attention.</p>\n\n<p>The centerpiece of Romney’s logo is an \"R\" that looks like a diverse mini-crowd of people — and Paul's \"A\" has some stripes. But both letters are lost in their respective, conservatively designed logos.</p>\n\n<p>\"The 'R' does have a hint of modernity about it,\" Evamy said. \"But it’s not a pretty logo by any means.\"</p>",
+  "answers": [
+    "A",
+    "R"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 151.1,
+  "end": 162.28
+});
+popcorn.image({
+  "start": 151.15,
+  "end": 162.23,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/plogo_1_homepage_slot_1.png",
+  "text": ""
+});
+popcorn.image({
+  "start": 151.15,
+  "end": 162.25,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/romney_r_homepage_lede.png",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 156.24,
+  "end": 158.15
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 158.15,
+  "end": 160.1
+});
+popcorn.image({
+  "start": 159.46,
+  "end": 162.17,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/paul_logo_homepage_lede.png",
+  "text": ""
+});
+popcorn.quiz({
+  "question": "Which icon was a part of Herman Cain's campaign logo?",
+  "explanation": "<p>Stars and stripes are common in American political branding. In that regard, the star icon in Newt Gingrich's logo failed to distinguish itself from the group. Overall, Michael Evamy said there was a \"lack of imagination\" with the symbols used in the GOP presidential campaign logos.</p>\n\n<p>Although Herman Cain's torch could be a nod to the Statue of Liberty, the icon is seldom used in American politics. Evamy said the torch is rooted more in Greek symbology than American.<p>",
+  "answers": [
+    "Star",
+    "Torch"
+  ],
+  "correct": 1,
+  "target": "questions",
+  "start": 162.28,
+  "end": 170.19
+});
+popcorn.image({
+  "start": 162.35,
+  "end": 170.1,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/gstar_homepage_lede.png",
+  "text": ""
+});
+popcorn.image({
+  "start": 162.36,
+  "end": 170.09,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/clogo_2_homepage_lede.png",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 166.25,
+  "end": 168.06
+});
+popcorn.image({
+  "start": 167.26,
+  "end": 170.06,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/cain_logo_homepage_blog_horizontal.png",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 168.06,
+  "end": 169.99
+});
+popcorn.quiz({
+  "question": "Which of these H's was a part of Michele Bachmann's campaign logo?",
+  "explanation": "\n<p>Michael Evamy said Jon Huntsman's red \"H\" proved more interesting than his competitors' logos, singling out its structured \"ladder effect.\" Michele Bachmann's \"H,\" however, looks like an <a href=\"http://farm3.static.flickr.com/2740/4132470141_08a266bb3f.jpg\" target=\"_blank\"><strong>Aquafresh ad</strong></a>.</p>\n\n<p>\"I think [the swirl] is just a decorative effect,\" Evamy said. As the only woman in the race, he added, \"Maybe it slightly feminizes the logo type a little bit.\"</p>\n",
+  "answers": [
+    "Left logo",
+    "Right logo"
+  ],
+  "correct": 1,
+  "target": "questions",
+  "start": 170.17,
+  "end": 177.08
+});
+popcorn.image({
+  "start": 170.23,
+  "end": 177.04,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/blogo_homepage_lede.png",
+  "text": ""
+});
+popcorn.image({
+  "start": 170.24,
+  "end": 177.02,
+  "href": "",
+  "target": "questions",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/hlogo_homepage_slot_1.png",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 174.28,
+  "end": 175.81
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 175.82,
+  "end": 176.95
+});
+popcorn.quiz({
+  "question": "Whose campaign ad featured chief of staff Mark Block smoking a cigarette?",
+  "explanation": "<p>The Cain Web ad went viral, but not for its message. The ad's extended close-ups of Block and Cain proved more memorable.</p>\n\n<p>\"Some of the Cain spots are just provocative without having any real context to the current conversation in the campaign,\" LSU professor Robert Mann said. \"I think Cain's ad was sort of a bastardization of what [Lyndon B.] Johnson's people tried to do [with the <a href=\"http://www.youtube.com/watch?v=63h_v6uf0Ao\" target=\"_blank\"><strong>'Daisy Girl' ad</strong></a>].\"</p>\n",
+  "answers": [
+    "Michele Bachmann",
+    "Herman Cain",
+    "Mitt Romney"
+  ],
+  "correct": 1,
+  "target": "questions",
+  "start": 177.07,
+  "end": 196.41
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=vcIFkQDmyss",
+  "caption": "",
+  "target": "questions",
+  "start": 177.07,
+  "end": 196.28
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 183.87,
+  "end": 185.53
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 185.52,
+  "end": 187.17
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 187.17,
+  "end": 188.84
+});
+popcorn.hint({
+  "text": "This ad featured a long, maybe unnecessary close-up of the candidate himself.",
+  "start": 189.2,
+  "end": 196.20999999999998,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.image({
+  "start": 190.96,
+  "end": 196.3,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/09/cainstill_homepage_lede.png",
+  "text": ""
+});
+popcorn.quiz({
+  "question": "Which Republican candidate is known for his cowboy image?",
+  "explanation": "\n",
+  "answers": [
+    "Ron Paul",
+    "Mitt Romney",
+    "Rick Perry"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 196.41,
+  "end": 216.36
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 203.15,
+  "end": 204.67
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 204.66,
+  "end": 206.22
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 206.23,
+  "end": 207.65
+});
+popcorn.hint({
+  "text": "“Commerce, Education and, uh, what’s the third one?”",
+  "start": 207.7,
+  "end": 216.1,
+  "defaultTransition": "",
+  "innerCSS": "",
+  "target": "questions"
+});
+popcorn.quiz({
+  "question": "Which of these cowboys appeared in a Rick Perry ad?",
+  "explanation": "<p>The cowboy on the left is in Herman Cain's fake, online western, <a href=\"http://www.youtube.com/watch?v=f5O1SwGg_YU&feature=youtu.be\" target=\"_blank\"><strong>\"He Carried Yellow Flowers.\"</strong></a> The cowboy on the right appeared in a couple of Mitt Romney ads, including <a href=\"http://youtu.be/ypS9f3bt0_E\" target=\"_blank\"><strong>\"In America, Anything Is Possible.\"</strong></a></p>\n",
+  "answers": [
+    "Left cowboy",
+    "Right cowboy",
+    "Neither"
+  ],
+  "correct": 2,
+  "target": "questions",
+  "start": 216.34,
+  "end": 227.05
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=2wAFu2OhmD8",
+  "caption": "",
+  "target": "media1",
+  "start": 216.37,
+  "end": 226.99
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=aiCePMcuN1w",
+  "caption": "",
+  "target": "media2",
+  "start": 216.38,
+  "end": 226.99
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 220.06,
+  "end": 222.04
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 222.02,
+  "end": 224.48
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 224.46,
+  "end": 226.57
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=vK_-W2Q7LL4",
+  "caption": "",
+  "target": "media2",
+  "start": 227.06,
+  "end": 235.75
+});
+popcorn.mediaspawner({
+  "source": "http://www.youtube.com/watch?v=y8xHvj04AFg",
+  "caption": "",
+  "target": "media1",
+  "start": 227.07,
+  "end": 235.77
+});
+popcorn.quiz({
+  "question": "Which of these cowboys appeared in a Rick Perry ad?",
+  "explanation": "<p>Several GOP presidential candidates used the image of a cowboy – an American archetype – in their ads.\n\n<p>\"The cowboy is native to the pioneer spirit. It defines individually, independence, not being a part of any system,\" UNC professor Anne Johnston said.</p> \n\n<p>It’s not a coincidence then that Rick Perry declares <a href=\"http://www.youtube.com/watch?v=I0eOaQSdrkI\" target=\"_blank\"><strong>\"I’m the outsider\"</strong></a> in an ad.</p>\n\n<p>Unlike his competition, Perry didn’t use the cowboy as a symbolic throwback to a bygone era, he is the cowboy. In a <a href=\"http://www.youtube.com/watch?v=rhu-3GbeA3A\" target=\"_blank\"><strong>biographical ad this year</strong></a>, footage of a younger Perry with his family can be seen. That same shot can be traced to a <a href=\"http://www.youtube.com/watch?v=XGXGROsN_eU\" target=\"_blank\"><strong>1990 ad</strong></a> for the then-newly Republican’s first statewide election bid for agriculture commissioner of Texas. Also seen is Perry in cowboy garb, riding a horse with the sunset as his backdrop.</p>\n\n<p>Interestingly, in his 2012 ads, Perry lost the cowboy hat, but kept the twang.</p>\n\n<p> Above, the cowboy on the left appeared in Newt Gingrich's <a href=\"http://youtu.be/2fuGT9AzpZ8\" target=\"_blank\"><strong>\"Rebuilding the America We Love\" ad</strong></a>. The cowboy on the right appeared, albeit quickly, in Ron Paul's <a href=\"http://youtu.be/Ev43aTm267A\" target=\"_blank\"><strong>\"Secure\" </strong></a>ad.\n\n",
+  "answers": [
+    "Left cowboy",
+    "Right cowboy",
+    "Neither"
+  ],
+  "correct": 0,
+  "target": "questions",
+  "start": 227.07,
+  "end": 235.81
+});
+popcorn.answer({
+  "answer": 0,
+  "target": "questions",
+  "start": 230.21,
+  "end": 232.46
+});
+popcorn.answer({
+  "answer": 1,
+  "target": "questions",
+  "start": 232.44,
+  "end": 234.38
+});
+popcorn.image({
+  "start": 233.06,
+  "end": 235.67,
+  "href": "",
+  "target": "explanation-right",
+  "src": "http://newshour.s3.amazonaws.com:80/photos/2012/05/11/perrycowboy_2_homepage_lede.jpg",
+  "text": ""
+});
+popcorn.answer({
+  "answer": 2,
+  "target": "questions",
+  "start": 234.37,
+  "end": 235.68
+});
+
+popcorn.off( "canplayall", evts );
+}
+
+ return popcorn;
+}());</script>
+  
+
+</body></html>
