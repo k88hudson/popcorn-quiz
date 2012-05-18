@@ -138,6 +138,7 @@
 			}
 
 			base.addClass(base.container, status);
+			base.addClass(base.ul, status);
 			if (sound && sound.audio && sound.audio.readyState) {
 				sound.audio.play();
 			}
@@ -201,9 +202,9 @@
 					'.popcorn-quiz > ul { list-style: none; }\n' +
 					'.popcorn-quiz-answer { cursor: pointer; }\n' +
 					'.popcorn-quiz-answer > label { cursor: pointer; }\n' +
-					'.popcorn-quiz.wrong .popcorn-quiz-answer, .popcorn-quiz.right .popcorn-quiz-answer { color: gray; }\n' +
-					'.popcorn-quiz.wrong .popcorn-quiz-answer.answered { text-decoration: line-through; }\n' +
-					'.popcorn-quiz.wrong .popcorn-quiz-answer.correct, .popcorn-quiz.right .popcorn-quiz-answer.correct { font-weight: bold; color: darkgreen; }\n' +
+					'.wrong .popcorn-quiz-answer, .right .popcorn-quiz-answer { color: #555; }\n' +
+					'.wrong .popcorn-quiz-answer.answered { text-decoration: line-through; color: #F32520 !important; }\n' +
+					'.wrong .popcorn-quiz-answer.correct, .right .popcorn-quiz-answer.correct { font-weight: bold; background: #57BA67; }\n' +
 					'.popcorn-quiz.active { display: block; }\n' +
 					'.popcorn-quiz-options { display: none; }\n' +
 					'.popcorn-quiz-options.active { display: block; }\n'
@@ -357,9 +358,14 @@
 				base.addClass(base.ul, 'active');
 				allowPause = true;
 
-				popcorn.cue( base.options.end - 0.1, function(){
-					popcorn.pause();
-				});
+				popcorn.on( "timeupdate", pauseQuiz );
+				function pauseQuiz() {
+					var ct = popcorn.currentTime();
+					if( ct > ( base.options.end - 0.4 ) ) {
+						popcorn.pause();
+						popcorn.off( "timeUpdate", pauseQuiz );
+					}
+				}
 			},
 			end: function( event, options ) {
 				var i;
@@ -372,6 +378,7 @@
 					}
 					answer = -1;
 					base.removeClass(base.container, ['right', 'wrong']);
+					base.removeClass(base.ul, ['right', 'wrong']);
 				}
 
 			},

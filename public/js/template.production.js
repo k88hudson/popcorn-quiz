@@ -221,7 +221,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           popcornWrapper( e.data );
         }, false);
 
-        window.t = t;
         window.butter = butter;
       }
     }); //Butter

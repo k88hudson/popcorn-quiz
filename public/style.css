@@ -10,6 +10,8 @@ body {
 
 #media { display: none; }
 
+.row-fluid [class*="span"] { min-height: 0 !important;}
+
 /* Help Panel */
 
 #help { color: #F6DC7E; }
@@ -57,20 +59,17 @@ body {
 }
 
 /* Question & Explanation */
-#questions {
+#main {
 	background: none;
 	border-radius: 0;
 	padding: 10px 0;
-	border-top: 1px solid #888;
 	margin-bottom: 20px;
 }
 
 #questions h1 {
 	font-size: 1.8em;
 	line-height: 1.2;
-}
-.popcorn-quiz-explanation {
-	text-align: center; /* Center the "Continue" button */
+	margin-bottom: 24px;
 }
 
 .popcorn-quiz-explanation > div {
@@ -81,6 +80,7 @@ body {
 #explanation-left {
 	float: right;
 }
+
 
 /* Video */
 .flex-video iframe, .flex-video object, .flex-video embed { width:100%; }
@@ -108,14 +108,6 @@ ul.popcorn-quiz-options li{
 
 ul.popcorn-quiz-options label{
 	font-size: 1.5em;
-}
-
-.popcorn-quiz.wrong .popcorn-quiz-answer.answered {
-	color: #F32520;
-}
-
-.popcorn-quiz.wrong .popcorn-quiz-answer.correct, .popcorn-quiz.right .popcorn-quiz-answer.correct {
-	background: #1FC147;
 }
 
 
@@ -149,16 +141,14 @@ ul.popcorn-quiz-options label{
 
 /* Tablet + */
 @media (min-width: 768px) {
+
 	#main {
-		
-	}
-	#questions {
-		padding: 30px;
 		background-color: rgba(255, 255, 255, 0.5);
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 		border: 8px solid rgba(255, 255, 255, 0.2);
+		padding: 30px;
 	}
 
 
