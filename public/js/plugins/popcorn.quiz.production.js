@@ -361,7 +361,7 @@
 				popcorn.on( "timeupdate", pauseQuiz );
 				function pauseQuiz() {
 					var ct = popcorn.currentTime();
-					if( ct > ( base.options.end - 0.4 ) ) {
+					if( ct > ( base.options.end - 0.25 ) ) {
 						popcorn.pause();
 						popcorn.off( "timeUpdate", pauseQuiz );
 					}
@@ -383,7 +383,7 @@
 
 			},
 			_teardown: function( options ) {
-				console.log("teardown");
+	
 				if (rightSound) {
 					rightSound.count--;
 				}
