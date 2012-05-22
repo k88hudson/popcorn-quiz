@@ -106,10 +106,11 @@
 		}
 
 		function proceed() {
-			var endTime = options.end - 0.1;
+			var endTime = base.options.end - 0.1;
 			if (popcorn.currentTime() < endTime) {
 				popcorn.currentTime(endTime);
 			}
+			allowPause = false;
 			popcorn.play();
 		}
 
@@ -361,9 +362,9 @@
 				popcorn.on( "timeupdate", pauseQuiz );
 				function pauseQuiz() {
 					var ct = popcorn.currentTime();
-					if( ct > ( base.options.end - 0.25 ) ) {
-						popcorn.pause();
-						popcorn.off( "timeUpdate", pauseQuiz );
+					if( ct > ( base.options.end - 0.1 ) ) {
+						allowPause && popcorn.pause();
+						//popcorn.off( "timeupdate", pauseQuiz );
 					}
 				}
 			},
