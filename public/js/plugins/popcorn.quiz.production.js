@@ -106,7 +106,7 @@
 		}
 
 		function proceed() {
-			var endTime = base.options.end - 0.25;
+			var endTime = base.options.end - 0.1;
 			if (popcorn.currentTime() < endTime) {
 				popcorn.currentTime(endTime);
 			}
@@ -362,7 +362,7 @@
 				popcorn.on( "timeupdate", pauseQuiz );
 				function pauseQuiz() {
 					var ct = popcorn.currentTime();
-					if( ct > ( base.options.end - 0.25 ) ) {
+					if( ct > ( base.options.end - 0.3 ) ) {
 						allowPause && popcorn.pause();
 						//popcorn.off( "timeupdate", pauseQuiz );
 					}
